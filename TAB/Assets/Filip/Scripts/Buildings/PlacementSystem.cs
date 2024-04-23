@@ -6,23 +6,22 @@ using UnityEngine;
 public class PlacementSystem : MonoBehaviour
 {
     [SerializeField] private GameObject mousieIndicator;
-    [SerializeField] private GameObject cellIndicator;
     [SerializeField] private InputForGridSystem inputForGridSystem;
     [SerializeField] private Grid grid;
     [SerializeField] private BuildingsDataScriptableObj buildingsDataScriptableObj;
     [SerializeField] private GameObject gridVisual;
+    [SerializeField] private PrevievSystem previevSystem;
     private int selectedObjIndex = -1;
     private GridData groundData;
     private GridData buildingData;
-    private Renderer previewRenderer;
     private List<GameObject> placedBuildings = new List<GameObject>();
+    private Vector3Int lastDetectedPosition = Vector3Int.zero;
 
     private void Start()
     {
         StopPlacement();
         groundData = new GridData();
         buildingData = new GridData();
-        previewRenderer = cellIndicator.GetComponent<Renderer>();
     }
 
     void Update()
@@ -31,10 +30,13 @@ public class PlacementSystem : MonoBehaviour
             return;
         Vector3 mousePositio = inputForGridSystem.GetSelectedMapPosition();
         Vector3Int gridPosition = grid.WorldToCell(mousePositio);
-        bool placmentValidyty = CheckPlacementValidyty(gridPosition, selectedObjIndex);
-        previewRenderer.material.color = placmentValidyty ? Color.white : Color.red;
-        mousieIndicator.transform.position = mousePositio;
-        cellIndicator.transform.position = grid.CellToWorld(gridPosition);
+        if (lastDetectedPosition != gridPosition)
+        {
+            bool placmentValidyty = CheckPlacementValidyty(gridPosition, selectedObjIndex);
+            mousieIndicator.transform.position = mousePositio;
+            previevSystem.UpdatePosition(grid.CellToWorld(gridPosition), placmentValidyty);
+            lastDetectedPosition = gridPosition;
+        }
     }
 
     public void StartPlacement(int ID)
@@ -47,7 +49,9 @@ public class PlacementSystem : MonoBehaviour
             return;
         }
         gridVisual.SetActive(true);
-        cellIndicator.SetActive(true);
+        previevSystem.StartShowingPlacementPreview(
+            buildingsDataScriptableObj.buildingsDatas[selectedObjIndex].Prefab,
+            buildingsDataScriptableObj.buildingsDatas[selectedObjIndex].Size);
         inputForGridSystem.OnClicked += PlaceStructure;
         inputForGridSystem.OnExit += StopPlacement;
     }
@@ -56,9 +60,10 @@ public class PlacementSystem : MonoBehaviour
     {
         selectedObjIndex = -1;
         gridVisual.SetActive(false);
-        cellIndicator.SetActive(false);
+        previevSystem.StopShowingPreview();
         inputForGridSystem.OnClicked -= PlaceStructure;
         inputForGridSystem.OnExit -= StopPlacement;
+        lastDetectedPosition = Vector3Int.zero;
     }
 
     private void PlaceStructure()
@@ -79,6 +84,8 @@ public class PlacementSystem : MonoBehaviour
         selectedData.AddObejctAt(gridPosition, buildingsDataScriptableObj.buildingsDatas[selectedObjIndex].Size,
             buildingsDataScriptableObj.buildingsDatas[selectedObjIndex].ID,
             placedBuildings.Count - 1);
+        previevSystem.UpdatePosition(grid.CellToWorld(gridPosition), false);
+
     }
 
     private bool CheckPlacementValidyty(Vector3Int gridPosition, int selectedObjIndex)

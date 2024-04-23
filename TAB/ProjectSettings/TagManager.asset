@@ -9,6 +9,7 @@ TagManager:
   - HUD
   - Selector
   - Builder
+  - MainBuilding
   layers:
   - Default
   - TransparentFX
