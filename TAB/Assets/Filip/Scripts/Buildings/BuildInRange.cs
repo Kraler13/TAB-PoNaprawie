@@ -4,15 +4,25 @@ using UnityEngine;
 
 public class BuildInRange : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public bool isValid;
+    private void Update()
     {
-        
+        Debug.Log(isValid);
     }
-
-    // Update is called once per frame
-    void Update()
+    private void OnTriggerEnter(Collider other)
     {
-        
+        Debug.Log("dzia³a");
+        if (other.tag == "Building")
+        {
+            
+            isValid = true;
+        }
     }
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.tag == "Building")
+        {
+            isValid = false;
+        }
+    }   
 }

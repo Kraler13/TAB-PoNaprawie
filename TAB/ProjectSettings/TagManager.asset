@@ -10,6 +10,7 @@ TagManager:
   - Selector
   - Builder
   - MainBuilding
+  - Building
   layers:
   - Default
   - TransparentFX

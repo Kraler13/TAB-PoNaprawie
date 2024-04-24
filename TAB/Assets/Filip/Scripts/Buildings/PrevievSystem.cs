@@ -62,7 +62,6 @@ public class PrevievSystem : MonoBehaviour
         MovePreview(position);
         MoveCursor(position);
         ApplyFeedback(validity);
-
     }
 
     private void ApplyFeedback(bool validity)
