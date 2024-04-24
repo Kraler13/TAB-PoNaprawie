@@ -9,8 +9,9 @@ TagManager:
   - HUD
   - Selector
   - Builder
-  - MainBuilding
   - Building
+  - RangeExtender
+  - PlacmentSystem
   layers:
   - Default
   - TransparentFX

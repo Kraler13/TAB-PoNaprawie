@@ -7,14 +7,12 @@ public class BuildInRange : MonoBehaviour
     public bool isValid;
     private void Update()
     {
-        Debug.Log(isValid);
+        //Debug.Log(isValid);
     }
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("dzia³a");
         if (other.tag == "Building")
-        {
-            
+        {          
             isValid = true;
         }
     }

@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class PlacementSystem : MonoBehaviour
 {
+    public bool isColliding = false;
     [SerializeField] private GameObject mousieIndicator;
     [SerializeField] private InputForGridSystem inputForGridSystem;
     [SerializeField] private Grid grid;
@@ -19,7 +20,7 @@ public class PlacementSystem : MonoBehaviour
     private List<BuildInRange> buildingsWithMoreRange = new List<BuildInRange>();
     private void Start()
     {
-        buildingsWithMoreRange.Add(GameObject.FindGameObjectWithTag("MainBuilding").GetComponent<BuildInRange>());
+        buildingsWithMoreRange.Add(GameObject.FindGameObjectWithTag("RangeExtender").GetComponent<BuildInRange>());
         StopPlacement();
         groundData = new GridData();
         buildingData = new GridData();
@@ -102,6 +103,9 @@ public class PlacementSystem : MonoBehaviour
             if(building.isValid)
                 isValid = true;
         }
-        return isValid;
+        if (isValid && !isColliding)
+            return true;
+        else 
+            return false;
     }
 }
