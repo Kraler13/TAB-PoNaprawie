@@ -2,11 +2,12 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class PlacementSystem : MonoBehaviour
 {
     public bool isColliding = false;
-    [SerializeField] private GameObject mousieIndicator;
+
     [SerializeField] private InputForGridSystem inputForGridSystem;
     [SerializeField] private Grid grid;
     [SerializeField] private BuildingsDataScriptableObj buildingsDataScriptableObj;
@@ -17,10 +18,11 @@ public class PlacementSystem : MonoBehaviour
     private GridData buildingData;
     private List<GameObject> placedBuildings = new List<GameObject>();
     private Vector3Int lastDetectedPosition = Vector3Int.zero;
-    private List<BuildInRange> buildingsWithMoreRange = new List<BuildInRange>();
+    public List<BuildInRange> buildingsWithMoreRange = new List<BuildInRange>();
     private void Start()
     {
-        buildingsWithMoreRange.Add(GameObject.FindGameObjectWithTag("RangeExtender").GetComponent<BuildInRange>());
+        var extender = GameObject.FindGameObjectWithTag("Building");
+        buildingsWithMoreRange.Add(extender.GetComponentInChildren<BuildInRange>());
         StopPlacement();
         groundData = new GridData();
         buildingData = new GridData();
@@ -35,7 +37,6 @@ public class PlacementSystem : MonoBehaviour
         if (lastDetectedPosition != gridPosition)
         {
             bool placmentValidyty = CheckPlacementValidyty();
-            mousieIndicator.transform.position = mousePositio;
             previevSystem.UpdatePosition(grid.CellToWorld(gridPosition), placmentValidyty);
             lastDetectedPosition = gridPosition;
         }
@@ -87,6 +88,7 @@ public class PlacementSystem : MonoBehaviour
         newBuilding.transform.position = grid.CellToWorld(gridPosition);
         placedBuildings.Add(newBuilding);
         Rigidbody rb = newBuilding.GetComponentInChildren<Rigidbody>();
+        newBuilding.GetComponentInChildren<NavMeshObstacle>().enabled = true;
         Destroy(rb);
         GridData selectedData = buildingsDataScriptableObj.buildingsDatas[selectedObjIndex].ID == 0 ? groundData : buildingData;
         selectedData.AddObejctAt(gridPosition, buildingsDataScriptableObj.buildingsDatas[selectedObjIndex].Size,

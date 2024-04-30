@@ -12,7 +12,6 @@ public class BuildingCollision : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("dzia³a");
         if (other.tag == "Building")
             placementSystem.isColliding = true;
     }

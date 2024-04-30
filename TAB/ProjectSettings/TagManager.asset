@@ -12,6 +12,7 @@ TagManager:
   - Building
   - RangeExtender
   - PlacmentSystem
+  - Enemy
   layers:
   - Default
   - TransparentFX
