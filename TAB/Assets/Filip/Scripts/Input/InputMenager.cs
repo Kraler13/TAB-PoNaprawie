@@ -6,16 +6,31 @@ using Unity.VisualScripting;
 using UnityEditor.ShaderKeywordFilter;
 using UnityEngine;
 using System.Linq;
+using UnityEngine.AI;
+
 public class InputMenager : MonoBehaviour
 {
-    [SerializeField] SquadSelection selectedSquads;
+    [SerializeField] private SquadSelection selectedSquads;
     [SerializeField] private List<Vector3> listOfPoints = new List<Vector3>();
-    [SerializeField] LayerMask ground;
+    [SerializeField] private List<GameObject> squadPatroling = new List<GameObject>();
+    [SerializeField] private List<Vector3> oldPositionInPatrol = new List<Vector3>();
+    [SerializeField] private List<Vector3> newPositionInPatrol = new List<Vector3>();
+    [SerializeField] private LayerMask ground;
 
+    public bool startPatrol = false;
     private float distanceBetweenSquads = 5;
+    private bool patrolCheker;
 
     void Update()
     {
+        foreach(var squad in squadPatroling)
+        {
+            var squadLogic = squad.GetComponent<SquadLogic>();
+            if (squadLogic.isPatroling && squadLogic.GoBackInPatrol)
+            {
+                Patrol();
+            }
+        }
         SquadHandleInput();
         BuildingSelection();
     }
@@ -29,7 +44,12 @@ public class InputMenager : MonoBehaviour
             RaycastHit hit;
 
             if (Physics.Raycast(ray, out hit, Mathf.Infinity, ground))
-            {                
+            {
+                if (startPatrol)
+                {
+                    StartPatrol(hit);
+                    return;
+                }
                 if (hit.transform.gameObject.tag == "Enemy")
                 {
                     AttackEnemy(hit);
@@ -41,7 +61,58 @@ public class InputMenager : MonoBehaviour
             }
         }
     }
+    void StartPatrol(RaycastHit hit)
+    {
+        patrolCheker = true;
+        MathfHendle(hit.point);
 
+        startPatrol = false;
+        squadPatroling.Clear();
+        oldPositionInPatrol.Clear();
+
+
+        for (int i = 0; i < selectedSquads.SquadsSelected.Count; i++)
+        {
+            squadPatroling.Add(selectedSquads.SquadsSelected[i]);
+            oldPositionInPatrol.Add(selectedSquads.SquadsSelected[i].transform.position);
+            selectedSquads.SquadsSelected[i].TryGetComponent<SquadLogic>(out SquadLogic squadLogic);
+            if (squadLogic != null)
+            {
+                squadLogic.isPatroling = true;
+                squadLogic.PatrolTargetPosition = newPositionInPatrol[i];
+                squadLogic.MoveToDestination(newPositionInPatrol[i]);
+            }
+            else
+                selectedSquads.SquadsSelected[i].GetComponent<SingleUniteSquad>().MoveToDestination(listOfPoints[i]);
+        }
+    }
+    void Patrol()
+    {
+        patrolCheker = !patrolCheker;
+
+        for (int i = 0; i < squadPatroling.Count; i++)
+        {
+            squadPatroling[i].TryGetComponent<SquadLogic>(out SquadLogic squadLogic);
+            if (squadLogic != null)
+            {
+                if (patrolCheker)
+                {
+                    squadLogic.MoveToDestination(oldPositionInPatrol[i]);
+                    squadLogic.PatrolTargetPosition = oldPositionInPatrol[i];
+                    Debug.Log(oldPositionInPatrol[i]);
+                }
+                else
+                {
+                    squadLogic.MoveToDestination(newPositionInPatrol[i]);
+                    squadLogic.PatrolTargetPosition = newPositionInPatrol[i];
+                    Debug.Log(newPositionInPatrol[i]);
+                }
+
+
+            }
+
+        }
+    }
     void BuildingSelection()
     {
         if (Input.GetMouseButtonDown(0))
@@ -67,6 +138,12 @@ public class InputMenager : MonoBehaviour
             selectedSquads.SquadsSelected[i].TryGetComponent<SquadLogic>(out SquadLogic squadLogic);
             if (squadLogic != null)
             {
+                if (squadLogic.isPatroling)
+                {
+                    squadLogic.isPatroling = false;
+                    int ind = squadPatroling.IndexOf(squadLogic.gameObject);
+                    squadPatroling.RemoveAt(ind);
+                }
                 squadLogic.MoveToDestination(listOfPoints[i]);
             }
             else
@@ -74,10 +151,10 @@ public class InputMenager : MonoBehaviour
         }
     }
 
-    
+
     void AttackEnemy(RaycastHit hit)
     {
-        
+
         MathfHendle(hit.point);
 
         for (int i = 0; i < selectedSquads.SquadsSelected.Count; i++)
@@ -95,6 +172,7 @@ public class InputMenager : MonoBehaviour
     }
     void MathfHendle(Vector3 hitPointValue)
     {
+
         listOfPoints.Clear();
         Vector3 pointA = selectedSquads.SquadsSelected[0].transform.position;
         Vector3 pointB = hitPointValue;
@@ -111,6 +189,13 @@ public class InputMenager : MonoBehaviour
         listOfPoints.Add(pointB - offset * 2);
         listOfPoints.Add(pointB - offset * 2 + distanceBetweenSquads * new Vector3(normalizedAB.x, 0, -normalizedAB.z));
         listOfPoints.Add(pointB - offset * 2 - distanceBetweenSquads * new Vector3(normalizedAB.x, 0, -normalizedAB.z));
-    } 
+        if (startPatrol)
+        {
+            for (int i = 0; i < selectedSquads.SquadsSelected.Count; i++)
+            {
+                newPositionInPatrol.Add(listOfPoints[i]);
+            }
+        }
+    }
 }
 

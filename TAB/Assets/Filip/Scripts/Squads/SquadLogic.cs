@@ -12,6 +12,8 @@ using UnityEngine.UI;
 //przypisujemy odpowiedni Button do danej jednostki
 public class SquadLogic : MonoBehaviour
 {
+    [SerializeField] private LayerMask ground;
+    [SerializeField] private float distanceThreshold = 1.0f;
     public float hp = 100;
     public GameObject Unite;
     public List<GameObject> ListOfSpowningPoints;
@@ -20,10 +22,12 @@ public class SquadLogic : MonoBehaviour
     public bool IsAttacking = false;
     public bool InRangeAttack = false;
     public ResorsSriptableObj resorsSriptableObj;
-    private NavMeshAgent navMeshAgent;
     public GameObject enemy;
     public List<GameObject> ListOfEnemys;
-
+    public bool isPatroling = false;
+    public bool GoBackInPatrol = false;
+    public Vector3 PatrolTargetPosition;
+    private NavMeshAgent navMeshAgent;
 
     [SerializeField] private float RotationSpeed = 360f;
 
@@ -35,6 +39,17 @@ public class SquadLogic : MonoBehaviour
     }
     private void Update()
     {
+        if (isPatroling)
+        {
+            float distanceToTarget = Vector3.Distance(transform.position, PatrolTargetPosition);
+            if (distanceToTarget < distanceThreshold)
+            {
+                GoBackInPatrol = true;
+            }
+            else
+                GoBackInPatrol = false;
+        }
+
         if (ListOfEnemys.Count != 0 && enemy == null)
         {
             enemy = ListOfEnemys[0];
@@ -53,7 +68,9 @@ public class SquadLogic : MonoBehaviour
         Vector3 direction = destination - transform.position;
         navMeshAgent.SetDestination(destination);
     }
-    
+
+
+
     private IEnumerator Attack()
     {
         Debug.Log("atack2");

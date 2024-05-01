@@ -1347,6 +1347,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a7813207ffa86b46bb158b0fa2322fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ground:
+    serializedVersion: 2
+    m_Bits: 0
+  distanceThreshold: 1
   hp: 100
   Unite: {fileID: 3368740284047959390, guid: 4b889b7234cd6284fbebbba50281ff05, type: 3}
   ListOfSpowningPoints:
@@ -1366,6 +1370,9 @@ MonoBehaviour:
   resorsSriptableObj: {fileID: 11400000, guid: 696341b08440c7249af2e4d7507d6ecf, type: 2}
   enemy: {fileID: 0}
   ListOfEnemys: []
+  isPatroling: 0
+  GoBackInPatrol: 0
+  PatrolTargetPosition: {x: 0, y: 0, z: 0}
   RotationSpeed: 720
 --- !u!65 &351957293
 BoxCollider:
@@ -3968,6 +3975,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a7813207ffa86b46bb158b0fa2322fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ground:
+    serializedVersion: 2
+    m_Bits: 0
+  distanceThreshold: 1
   hp: 100
   Unite: {fileID: 3368740284047959390, guid: 4b889b7234cd6284fbebbba50281ff05, type: 3}
   ListOfSpowningPoints:
@@ -3987,6 +3998,9 @@ MonoBehaviour:
   resorsSriptableObj: {fileID: 11400000, guid: 696341b08440c7249af2e4d7507d6ecf, type: 2}
   enemy: {fileID: 0}
   ListOfEnemys: []
+  isPatroling: 0
+  GoBackInPatrol: 0
+  PatrolTargetPosition: {x: 0, y: 0, z: 0}
   RotationSpeed: 720
 --- !u!65 &848957821
 BoxCollider:
@@ -4113,9 +4127,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   selectedSquads: {fileID: 2053314207}
   listOfPoints: []
+  squadPatroling: []
+  oldPosition: []
   ground:
     serializedVersion: 2
     m_Bits: 256
+  startPatrol: 0
 --- !u!114 &851864368
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5073,7 +5090,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!65 &1161677901
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -6524,6 +6541,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a7813207ffa86b46bb158b0fa2322fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ground:
+    serializedVersion: 2
+    m_Bits: 0
+  distanceThreshold: 1
   hp: 100
   Unite: {fileID: 3368740284047959390, guid: 4b889b7234cd6284fbebbba50281ff05, type: 3}
   ListOfSpowningPoints:
@@ -6543,6 +6564,9 @@ MonoBehaviour:
   resorsSriptableObj: {fileID: 11400000, guid: 696341b08440c7249af2e4d7507d6ecf, type: 2}
   enemy: {fileID: 0}
   ListOfEnemys: []
+  isPatroling: 0
+  GoBackInPatrol: 0
+  PatrolTargetPosition: {x: 0, y: 0, z: 0}
   RotationSpeed: 720
 --- !u!65 &1389339830
 BoxCollider:
@@ -6757,6 +6781,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a7813207ffa86b46bb158b0fa2322fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ground:
+    serializedVersion: 2
+    m_Bits: 0
+  distanceThreshold: 1
   hp: 100
   Unite: {fileID: 3368740284047959390, guid: 4b889b7234cd6284fbebbba50281ff05, type: 3}
   ListOfSpowningPoints:
@@ -6776,6 +6804,9 @@ MonoBehaviour:
   resorsSriptableObj: {fileID: 11400000, guid: 696341b08440c7249af2e4d7507d6ecf, type: 2}
   enemy: {fileID: 0}
   ListOfEnemys: []
+  isPatroling: 0
+  GoBackInPatrol: 0
+  PatrolTargetPosition: {x: 0, y: 0, z: 0}
   RotationSpeed: 720
 --- !u!65 &1485036135
 BoxCollider:
@@ -7781,7 +7812,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1834830869
 MonoBehaviour:
   m_ObjectHideFlags: 0

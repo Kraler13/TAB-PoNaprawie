@@ -7,7 +7,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 //KA¯DY SQUADBUTTON MA SWOJ¥ LOGIKÊ
-public class LightBotsSquadActionButtons : MonoBehaviour
+public class OrdinaryPeasantsSquad : MonoBehaviour
 {
     [SerializeField] private ActionButtonsScriptableObj ActionButtonsScriptableObj;
     private int maxUnites = 9;
@@ -31,6 +31,9 @@ public class LightBotsSquadActionButtons : MonoBehaviour
         ActionButtonsScriptableObj.buttons[0].GetComponentInChildren<TextMeshProUGUI>().text = "dodaj";
         ActionButtonsScriptableObj.buttons[0].onClick.RemoveAllListeners();
         ActionButtonsScriptableObj.buttons[0].onClick.AddListener(Multiply);
+        ActionButtonsScriptableObj.buttons[1].GetComponentInChildren<TextMeshProUGUI>().text = "Patroluj";
+        ActionButtonsScriptableObj.buttons[1].onClick.RemoveAllListeners();
+        ActionButtonsScriptableObj.buttons[1].onClick.AddListener(Patrol);
     }
     void Multiply()
     {
@@ -42,5 +45,10 @@ public class LightBotsSquadActionButtons : MonoBehaviour
             squadLogic.ListOfSpowningPointsToChange.RemoveAt(0);
             uniteCount++;
         }
+    }
+
+    void Patrol()
+    {
+        GameObject.FindGameObjectWithTag("LvlMenager").GetComponent<InputMenager>().startPatrol = true;
     }
 }
