@@ -14,10 +14,12 @@ public class SquadLogic : MonoBehaviour
 {
     [SerializeField] private LayerMask ground;
     [SerializeField] private float distanceThreshold = 1.0f;
+    [SerializeField] private float RotationSpeed = 360f;
     public float hp = 100;
     public GameObject Unite;
     public List<GameObject> ListOfSpowningPoints;
     public List<GameObject> ListOfSpowningPointsToChange;
+    public List<GameObject> Unites;
     public float SquadSpeed = 10f;
     public bool IsAttacking = false;
     public bool InRangeAttack = false;
@@ -27,12 +29,13 @@ public class SquadLogic : MonoBehaviour
     public bool isPatroling = false;
     public bool GoBackInPatrol = false;
     public Vector3 PatrolTargetPosition;
+    public int CurentUnitesCount;
+    public int StartingUnitesCount;
     private NavMeshAgent navMeshAgent;
-
-    [SerializeField] private float RotationSpeed = 360f;
 
     void Start()
     {
+        CurentUnitesCount = StartingUnitesCount;
         navMeshAgent = GetComponent<NavMeshAgent>();
         navMeshAgent.speed = SquadSpeed;
         navMeshAgent.angularSpeed = RotationSpeed;

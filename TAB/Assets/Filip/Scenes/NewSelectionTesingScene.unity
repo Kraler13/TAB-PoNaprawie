@@ -445,12 +445,27 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    m_TransformParent: {fileID: 848957824}
+    m_TransformParent: {fileID: 1573022294}
     m_Modifications:
+    - target: {fileID: -8293840160011280510, guid: 4b889b7234cd6284fbebbba50281ff05,
+        type: 3}
+      propertyPath: SquadLogic
+      value: 
+      objectReference: {fileID: 848957820}
+    - target: {fileID: -8293840160011280510, guid: 4b889b7234cd6284fbebbba50281ff05,
+        type: 3}
+      propertyPath: squadLogic
+      value: 
+      objectReference: {fileID: 848957820}
+    - target: {fileID: -8293840160011280510, guid: 4b889b7234cd6284fbebbba50281ff05,
+        type: 3}
+      propertyPath: CurrentUniteHP
+      value: 100
+      objectReference: {fileID: 0}
     - target: {fileID: 3368740284047959389, guid: 4b889b7234cd6284fbebbba50281ff05,
         type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3368740284047959389, guid: 4b889b7234cd6284fbebbba50281ff05,
         type: 3}
@@ -635,12 +650,27 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    m_TransformParent: {fileID: 1485036138}
+    m_TransformParent: {fileID: 1218465550}
     m_Modifications:
+    - target: {fileID: -8293840160011280510, guid: 4b889b7234cd6284fbebbba50281ff05,
+        type: 3}
+      propertyPath: SquadLogic
+      value: 
+      objectReference: {fileID: 1485036134}
+    - target: {fileID: -8293840160011280510, guid: 4b889b7234cd6284fbebbba50281ff05,
+        type: 3}
+      propertyPath: squadLogic
+      value: 
+      objectReference: {fileID: 1485036134}
+    - target: {fileID: -8293840160011280510, guid: 4b889b7234cd6284fbebbba50281ff05,
+        type: 3}
+      propertyPath: CurrentUniteHP
+      value: 100
+      objectReference: {fileID: 0}
     - target: {fileID: 3368740284047959389, guid: 4b889b7234cd6284fbebbba50281ff05,
         type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3368740284047959389, guid: 4b889b7234cd6284fbebbba50281ff05,
         type: 3}
@@ -1275,6 +1305,7 @@ GameObject:
   - component: {fileID: 351957290}
   - component: {fileID: 351957289}
   - component: {fileID: 351957297}
+  - component: {fileID: 351957298}
   m_Layer: 9
   m_Name: Squad (1)
   m_TagString: Squad
@@ -1351,6 +1382,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 0
   distanceThreshold: 1
+  RotationSpeed: 720
   hp: 100
   Unite: {fileID: 3368740284047959390, guid: 4b889b7234cd6284fbebbba50281ff05, type: 3}
   ListOfSpowningPoints:
@@ -1364,6 +1396,8 @@ MonoBehaviour:
   - {fileID: 2000315603}
   - {fileID: 26112507}
   ListOfSpowningPointsToChange: []
+  Unites:
+  - {fileID: 1880058505}
   SquadSpeed: 5
   IsAttacking: 0
   InRangeAttack: 0
@@ -1373,7 +1407,8 @@ MonoBehaviour:
   isPatroling: 0
   GoBackInPatrol: 0
   PatrolTargetPosition: {x: 0, y: 0, z: 0}
-  RotationSpeed: 720
+  CurentUnitesCount: 0
+  StartingUnitesCount: 1
 --- !u!65 &351957293
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1451,7 +1486,6 @@ Transform:
   m_Children:
   - {fileID: 1379341405}
   - {fileID: 2506409}
-  - {fileID: 457144455}
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1467,6 +1501,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df4e1a964cae98242b46a58ddc186c55, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &351957298
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 351957288}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 01b3c93a6995a944f9746163af95ea4b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxUniteHP: 100
+  CurrentSquadHP: 0
+  maxSquadHealth: 0
 --- !u!1 &366592300
 GameObject:
   m_ObjectHideFlags: 0
@@ -2021,12 +2070,27 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    m_TransformParent: {fileID: 351957296}
+    m_TransformParent: {fileID: 1544941751}
     m_Modifications:
+    - target: {fileID: -8293840160011280510, guid: 4b889b7234cd6284fbebbba50281ff05,
+        type: 3}
+      propertyPath: SquadLogic
+      value: 
+      objectReference: {fileID: 351957292}
+    - target: {fileID: -8293840160011280510, guid: 4b889b7234cd6284fbebbba50281ff05,
+        type: 3}
+      propertyPath: squadLogic
+      value: 
+      objectReference: {fileID: 351957292}
+    - target: {fileID: -8293840160011280510, guid: 4b889b7234cd6284fbebbba50281ff05,
+        type: 3}
+      propertyPath: CurrentUniteHP
+      value: 100
+      objectReference: {fileID: 0}
     - target: {fileID: 3368740284047959389, guid: 4b889b7234cd6284fbebbba50281ff05,
         type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3368740284047959389, guid: 4b889b7234cd6284fbebbba50281ff05,
         type: 3}
@@ -3754,6 +3818,12 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 769110466}
   m_CullTransparentMesh: 1
+--- !u!1 &801626574 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3368740284047959390, guid: 4b889b7234cd6284fbebbba50281ff05,
+    type: 3}
+  m_PrefabInstance: {fileID: 162971991}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &806234157
 GameObject:
   m_ObjectHideFlags: 0
@@ -3903,6 +3973,7 @@ GameObject:
   - component: {fileID: 848957818}
   - component: {fileID: 848957817}
   - component: {fileID: 848957825}
+  - component: {fileID: 848957826}
   m_Layer: 9
   m_Name: Squad (3)
   m_TagString: Squad
@@ -3979,6 +4050,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 0
   distanceThreshold: 1
+  RotationSpeed: 720
   hp: 100
   Unite: {fileID: 3368740284047959390, guid: 4b889b7234cd6284fbebbba50281ff05, type: 3}
   ListOfSpowningPoints:
@@ -3992,6 +4064,8 @@ MonoBehaviour:
   - {fileID: 730764973}
   - {fileID: 148955752}
   ListOfSpowningPointsToChange: []
+  Unites:
+  - {fileID: 801626574}
   SquadSpeed: 5
   IsAttacking: 0
   InRangeAttack: 0
@@ -4001,7 +4075,8 @@ MonoBehaviour:
   isPatroling: 0
   GoBackInPatrol: 0
   PatrolTargetPosition: {x: 0, y: 0, z: 0}
-  RotationSpeed: 720
+  CurentUnitesCount: 0
+  StartingUnitesCount: 1
 --- !u!65 &848957821
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -4079,7 +4154,6 @@ Transform:
   m_Children:
   - {fileID: 1752907963}
   - {fileID: 1069308924}
-  - {fileID: 162971992}
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -4095,6 +4169,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df4e1a964cae98242b46a58ddc186c55, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &848957826
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 848957816}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 01b3c93a6995a944f9746163af95ea4b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxUniteHP: 100
+  CurrentSquadHP: 0
+  maxSquadHealth: 0
 --- !u!1 &851864366
 GameObject:
   m_ObjectHideFlags: 0
@@ -4128,7 +4217,8 @@ MonoBehaviour:
   selectedSquads: {fileID: 2053314207}
   listOfPoints: []
   squadPatroling: []
-  oldPosition: []
+  oldPositionInPatrol: []
+  newPositionInPatrol: []
   ground:
     serializedVersion: 2
     m_Bits: 256
@@ -4797,6 +4887,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ce8ad1a3b7f78848ad292a55e1e90b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isSelectingDrag: 0
   boxVisual: {fileID: 2051989360}
 --- !u!1 &1040547573
 GameObject:
@@ -5209,7 +5300,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1190106599}
   m_Father: {fileID: 563958092}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -5311,12 +5403,27 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    m_TransformParent: {fileID: 1389339833}
+    m_TransformParent: {fileID: 1163056906}
     m_Modifications:
+    - target: {fileID: -8293840160011280510, guid: 4b889b7234cd6284fbebbba50281ff05,
+        type: 3}
+      propertyPath: SquadLogic
+      value: 
+      objectReference: {fileID: 1389339829}
+    - target: {fileID: -8293840160011280510, guid: 4b889b7234cd6284fbebbba50281ff05,
+        type: 3}
+      propertyPath: squadLogic
+      value: 
+      objectReference: {fileID: 1389339829}
+    - target: {fileID: -8293840160011280510, guid: 4b889b7234cd6284fbebbba50281ff05,
+        type: 3}
+      propertyPath: CurrentUniteHP
+      value: 100
+      objectReference: {fileID: 0}
     - target: {fileID: 3368740284047959389, guid: 4b889b7234cd6284fbebbba50281ff05,
         type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3368740284047959389, guid: 4b889b7234cd6284fbebbba50281ff05,
         type: 3}
@@ -5621,7 +5728,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 228185574}
   m_Father: {fileID: 1851498609}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -5658,6 +5766,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   selection: {fileID: 348558482}
+  squadDrag: {fileID: 992033690}
   OneRowButtons: {fileID: 513698548}
   TwoRowButtons: {fileID: 218678501}
 --- !u!114 &1226139897
@@ -6156,6 +6265,12 @@ Transform:
   m_Father: {fileID: 1379341405}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1337839880 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3368740284047959390, guid: 4b889b7234cd6284fbebbba50281ff05,
+    type: 3}
+  m_PrefabInstance: {fileID: 1190106598}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1344627599
 GameObject:
   m_ObjectHideFlags: 0
@@ -6381,6 +6496,12 @@ Transform:
   m_Father: {fileID: 563958092}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1365365224 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3368740284047959390, guid: 4b889b7234cd6284fbebbba50281ff05,
+    type: 3}
+  m_PrefabInstance: {fileID: 228185573}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1379341404
 GameObject:
   m_ObjectHideFlags: 0
@@ -6469,6 +6590,7 @@ GameObject:
   - component: {fileID: 1389339827}
   - component: {fileID: 1389339826}
   - component: {fileID: 1389339834}
+  - component: {fileID: 1389339835}
   m_Layer: 9
   m_Name: Squad (2)
   m_TagString: Squad
@@ -6545,6 +6667,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 0
   distanceThreshold: 1
+  RotationSpeed: 720
   hp: 100
   Unite: {fileID: 3368740284047959390, guid: 4b889b7234cd6284fbebbba50281ff05, type: 3}
   ListOfSpowningPoints:
@@ -6558,6 +6681,8 @@ MonoBehaviour:
   - {fileID: 2091099392}
   - {fileID: 1866669620}
   ListOfSpowningPointsToChange: []
+  Unites:
+  - {fileID: 1337839880}
   SquadSpeed: 5
   IsAttacking: 0
   InRangeAttack: 0
@@ -6567,7 +6692,8 @@ MonoBehaviour:
   isPatroling: 0
   GoBackInPatrol: 0
   PatrolTargetPosition: {x: 0, y: 0, z: 0}
-  RotationSpeed: 720
+  CurentUnitesCount: 0
+  StartingUnitesCount: 1
 --- !u!65 &1389339830
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -6645,7 +6771,6 @@ Transform:
   m_Children:
   - {fileID: 563958092}
   - {fileID: 1635293708}
-  - {fileID: 1190106599}
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -6661,6 +6786,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df4e1a964cae98242b46a58ddc186c55, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1389339835
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1389339825}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 01b3c93a6995a944f9746163af95ea4b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxUniteHP: 100
+  CurrentSquadHP: 0
+  maxSquadHealth: 0
 --- !u!1 &1407613961
 GameObject:
   m_ObjectHideFlags: 0
@@ -6709,6 +6849,7 @@ GameObject:
   - component: {fileID: 1485036132}
   - component: {fileID: 1485036131}
   - component: {fileID: 1485036139}
+  - component: {fileID: 1485036140}
   m_Layer: 9
   m_Name: Squad
   m_TagString: Squad
@@ -6785,6 +6926,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 0
   distanceThreshold: 1
+  RotationSpeed: 720
   hp: 100
   Unite: {fileID: 3368740284047959390, guid: 4b889b7234cd6284fbebbba50281ff05, type: 3}
   ListOfSpowningPoints:
@@ -6798,6 +6940,8 @@ MonoBehaviour:
   - {fileID: 1164934540}
   - {fileID: 1767996580}
   ListOfSpowningPointsToChange: []
+  Unites:
+  - {fileID: 1365365224}
   SquadSpeed: 5
   IsAttacking: 0
   InRangeAttack: 0
@@ -6807,7 +6951,8 @@ MonoBehaviour:
   isPatroling: 0
   GoBackInPatrol: 0
   PatrolTargetPosition: {x: 0, y: 0, z: 0}
-  RotationSpeed: 720
+  CurentUnitesCount: 0
+  StartingUnitesCount: 1
 --- !u!65 &1485036135
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -6879,13 +7024,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1485036130}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.02, z: 0}
+  m_LocalPosition: {x: -6.48, y: 1.02, z: 15.23}
   m_LocalScale: {x: 5, y: 1, z: 5}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1851498609}
   - {fileID: 1794536813}
-  - {fileID: 228185574}
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -6901,6 +7045,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df4e1a964cae98242b46a58ddc186c55, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1485036140
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1485036130}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 01b3c93a6995a944f9746163af95ea4b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxUniteHP: 100
+  CurrentSquadHP: 0
+  maxSquadHealth: 0
 --- !u!1 &1544941750
 GameObject:
   m_ObjectHideFlags: 0
@@ -6928,7 +7087,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 457144455}
   m_Father: {fileID: 1379341405}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -6959,7 +7119,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 162971992}
   m_Father: {fileID: 1752907963}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -8519,6 +8680,12 @@ Transform:
   m_Father: {fileID: 563958092}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1880058505 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3368740284047959390, guid: 4b889b7234cd6284fbebbba50281ff05,
+    type: 3}
+  m_PrefabInstance: {fileID: 457144454}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1904651440
 GameObject:
   m_ObjectHideFlags: 0

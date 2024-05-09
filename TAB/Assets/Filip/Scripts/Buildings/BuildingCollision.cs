@@ -5,7 +5,6 @@ using UnityEngine;
 public class BuildingCollision : MonoBehaviour
 {
     private PlacementSystem placementSystem;
-    // Start is called before the first frame update
     void Start()
     {
         placementSystem = GameObject.FindGameObjectWithTag("PlacmentSystem").GetComponent<PlacementSystem>();

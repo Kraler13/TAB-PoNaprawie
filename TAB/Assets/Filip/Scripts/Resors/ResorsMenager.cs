@@ -10,12 +10,7 @@ public class ResorsMenager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI resorsTwoTxt;
     [SerializeField] private ResorsSriptableObj ResorsSriptableObj;
     private bool k = true;
-//    void Start()
-//    {
-////#if UNITY_EDITOR
-        
-////#endif
-//    }
+
     private void FixedUpdate()
     {
         if (k)

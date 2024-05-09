@@ -5,6 +5,7 @@ using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
+using static UnityEditor.Progress;
 
 //KA¯DY SQUADBUTTON MA SWOJ¥ LOGIKÊ
 public class OrdinaryPeasantsSquad : MonoBehaviour
@@ -17,13 +18,14 @@ public class OrdinaryPeasantsSquad : MonoBehaviour
     private int uniteCount = 1;
     private void Start()
     {
-        Button thisButton = GetComponent<Button>();
         gameObject.GetComponent<Button>().onClick.AddListener(AllButtons);
         squadLogic = GetComponent<SquadAndUniteButtonHendeler>().SquadConnectedToButton.GetComponent<SquadLogic>();
+        squadLogic.ListOfSpowningPointsToChange.Clear();
         foreach (var item in squadLogic.ListOfSpowningPoints)
         {
             squadLogic.ListOfSpowningPointsToChange.Add(item);
         }
+        uniteCount = squadLogic.CurentUnitesCount;
     }
 
     private void AllButtons()
@@ -40,10 +42,14 @@ public class OrdinaryPeasantsSquad : MonoBehaviour
         if (maxUnites > uniteCount)
         {
             squadLogic.resorsSriptableObj.ResorsOne -= 10f;
-            var createdButton = Instantiate(squadLogic.Unite, squadLogic.ListOfSpowningPointsToChange[0].transform);
-            createdButton.GetComponent<UniteLogic>().pointToFollow = squadLogic.ListOfSpowningPointsToChange[0];
+            var createdUnite = Instantiate(squadLogic.Unite, squadLogic.ListOfSpowningPointsToChange[0].transform);
+            createdUnite.GetComponent<UniteLogic>().pointToFollow = squadLogic.ListOfSpowningPointsToChange[0];
             squadLogic.ListOfSpowningPointsToChange.RemoveAt(0);
+            squadLogic.Unites.Add(createdUnite);
+            createdUnite.GetComponent<UniteHealth>().squadLogic = squadLogic;
+            createdUnite.GetComponent<UniteHealth>().CurrentUniteHP = squadLogic.gameObject.GetComponent<SquadHealth>().maxUniteHP;
             uniteCount++;
+            squadLogic.CurentUnitesCount++;
         }
     }
 

@@ -5,10 +5,7 @@ using UnityEngine;
 public class BuildInRange : MonoBehaviour
 {
     public bool isValid;
-    private void Update()
-    {
-        //Debug.Log(isValid);
-    }
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.tag == "Building")
