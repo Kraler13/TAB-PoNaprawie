@@ -17,6 +17,5 @@ public class BuildingsData
     [field: SerializeField] public Vector2Int Size { get; private set; } = Vector2Int.one;
     [field: SerializeField] public GameObject Prefab { get; private set; }
     [field: SerializeField] public bool BuildingWithMoreRang { get; private set; }
-    [field: SerializeField] public BuildInRange BuildInRange { get; private set; }
 
 }

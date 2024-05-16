@@ -9,8 +9,8 @@ public class SquadSelection : MonoBehaviour
     public List<GameObject> SquadList = new List<GameObject>();
     public List<GameObject> SquadsSelected = new List<GameObject>();
     public List<Button> buttonList = new List<Button>();
-    private static SquadSelection instance;
     public static SquadSelection Instance { get { return instance; } }
+    private static SquadSelection instance;
     private void Awake()
     {
         if (instance != null && instance != this)
@@ -22,6 +22,7 @@ public class SquadSelection : MonoBehaviour
             instance = this;
         }
     }
+
     public void ClickSelect(GameObject uniteToAdd)
     {
         DeselectAll();
@@ -34,12 +35,10 @@ public class SquadSelection : MonoBehaviour
         if (!SquadsSelected.Contains(uniteToAdd))
         {
             SquadsSelected.Add(uniteToAdd);
-            //dodaæ button
             AddButton(uniteToAdd);
         }
         else
         {
-            //usun¹æ button
             DeleteButton();
             SquadsSelected.Remove(uniteToAdd);
         }
@@ -78,7 +77,7 @@ public class SquadSelection : MonoBehaviour
             hudMenager.TwoRowButtons.SetActive(false);
             var button = Instantiate(uniteToAdd.GetComponent<SquadAndUniteButtonHendeler>().SquadButtonPrefab, hudMenager.OneRowButtons.transform);
             button.GetComponent<SquadAndUniteButtonHendeler>().SquadConnectedToButton = uniteToAdd;
-            buttonList.Add(button);
+            buttonList.Add(button);            
         }
     }
 }

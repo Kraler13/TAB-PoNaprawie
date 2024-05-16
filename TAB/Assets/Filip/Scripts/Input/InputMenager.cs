@@ -16,6 +16,7 @@ public class InputMenager : MonoBehaviour
     [SerializeField] private List<Vector3> oldPositionInPatrol = new List<Vector3>();
     [SerializeField] private List<Vector3> newPositionInPatrol = new List<Vector3>();
     [SerializeField] private LayerMask ground;
+    [SerializeField] private LayerMask building;
 
     public bool startPatrol = false;
     private float distanceBetweenSquads = 5;
@@ -23,7 +24,8 @@ public class InputMenager : MonoBehaviour
 
     void Update()
     {
-        foreach(var squad in squadPatroling)
+        BuildingSelection();
+        foreach (var squad in squadPatroling)
         {
             var squadLogic = squad.GetComponent<SquadLogic>();
             if (squadLogic.isPatroling && squadLogic.GoBackInPatrol)
@@ -32,7 +34,6 @@ public class InputMenager : MonoBehaviour
             }
         }
         SquadHandleInput();
-        BuildingSelection();
     }
 
     void SquadHandleInput()
@@ -120,12 +121,18 @@ public class InputMenager : MonoBehaviour
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
 
-            if (Physics.Raycast(ray, out hit, Mathf.Infinity, ground))
+            if (Physics.Raycast(ray, out hit, Mathf.Infinity, building))
             {
-                if (hit.transform.gameObject.tag == "Objective")
+                Debug.Log($"Raycast hit: {hit.transform.gameObject.name}, tag: {hit.transform.gameObject.tag}");
+                if (hit.transform.gameObject.tag == "Building")
                 {
+                    Debug.Log("budynek");
                     selectedSquads.DeselectAll();
                 }
+            }
+            else
+            {
+                Debug.Log("Raycast did not hit any objects in the 'ground' layer.");
             }
         }
     }

@@ -55,10 +55,6 @@ public class PlacementSystem : MonoBehaviour
         previevSystem.StartShowingPlacementPreview(
             buildingsDataScriptableObj.buildingsDatas[selectedObjIndex].Prefab,
             buildingsDataScriptableObj.buildingsDatas[selectedObjIndex].Size);
-        if (buildingsDataScriptableObj.buildingsDatas[selectedObjIndex].BuildingWithMoreRang)
-        {
-            buildingsWithMoreRange.Add(buildingsDataScriptableObj.buildingsDatas[selectedObjIndex].BuildInRange);
-        }
         inputForGridSystem.OnClicked += PlaceStructure;
         inputForGridSystem.OnExit += StopPlacement;
     }
@@ -85,6 +81,11 @@ public class PlacementSystem : MonoBehaviour
         if (!placmentValidyty)
             return;
         GameObject newBuilding = Instantiate(buildingsDataScriptableObj.buildingsDatas[selectedObjIndex].Prefab);
+        if (buildingsDataScriptableObj.buildingsDatas[selectedObjIndex].BuildingWithMoreRang)
+        {
+            buildingsWithMoreRange.Add(newBuilding.GetComponentInChildren<BuildInRange>());
+            newBuilding.GetComponentInChildren<BoxCollider>().enabled = true;
+        }
         newBuilding.transform.position = grid.CellToWorld(gridPosition);
         placedBuildings.Add(newBuilding);
         Rigidbody rb = newBuilding.GetComponentInChildren<Rigidbody>();
@@ -105,9 +106,14 @@ public class PlacementSystem : MonoBehaviour
             if(building.isValid)
                 isValid = true;
         }
+        Debug.Log(isValid);
         if (isValid && !isColliding)
-            return true;
-        else 
+        {
+            return true;           
+        }
+        else
+        {
             return false;
+        }
     }
 }

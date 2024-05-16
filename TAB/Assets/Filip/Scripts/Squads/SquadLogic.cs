@@ -21,8 +21,8 @@ public class SquadLogic : MonoBehaviour
     public List<GameObject> ListOfSpowningPointsToChange;
     public List<GameObject> Unites;
     public float SquadSpeed = 10f;
-    public bool IsAttacking = false;
-    public bool InRangeAttack = false;
+    public bool SeeEnemy = false;
+    public bool isAttacking = false;
     public ResorsSriptableObj resorsSriptableObj;
     public GameObject enemy;
     public List<GameObject> ListOfEnemys;
@@ -32,6 +32,7 @@ public class SquadLogic : MonoBehaviour
     public int CurentUnitesCount;
     public int StartingUnitesCount;
     private NavMeshAgent navMeshAgent;
+    private bool whiteWithAttack = true;
 
     void Start()
     {
@@ -61,7 +62,7 @@ public class SquadLogic : MonoBehaviour
         {
             MoveToDestination(enemy.transform.position);
         }
-        if (IsAttacking)
+        if (isAttacking && whiteWithAttack)
             StartCoroutine(Attack());
 
     }
@@ -76,25 +77,18 @@ public class SquadLogic : MonoBehaviour
 
     private IEnumerator Attack()
     {
-        Debug.Log("atack2");
-        
-
-        IsAttacking = false;
-        yield return new WaitForSeconds(1);
-        if (InRangeAttack && enemy != null)
+        whiteWithAttack = false;
+        if (isAttacking && enemy != null)
         {
-            Debug.Log("atack3");
-
             navMeshAgent.speed = 0;
-            enemy.GetComponent<Health>().TakeDamage(1);
-            IsAttacking = true;
-        }
-        else if (!InRangeAttack)
-        {
-            IsAttacking = false;
+            yield return new WaitForSeconds(1);
+            enemy.GetComponent<Health>().TakeDamage(1 * Unites.Count);
+            SeeEnemy = true;
         }
         else
+        {
             navMeshAgent.speed = SquadSpeed;
-
+        }
+        whiteWithAttack = true;
     }
 }
