@@ -8,9 +8,8 @@ public class FirstButtonClick : MonoBehaviour
     [SerializeField] private SquadSelection squadSelection;
     private bool wasClicked = false;
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
-        Debug.Log(wasClicked);
         if (squadSelection.buttonList.Count != 0 && !wasClicked)
         {
             transform.GetChild(0).GetComponent<Button>().onClick.Invoke();

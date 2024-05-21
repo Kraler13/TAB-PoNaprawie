@@ -8,11 +8,11 @@ TagManager:
   - LvlMenager
   - HUD
   - Selector
-  - Builder
   - Building
   - RangeExtender
   - PlacmentSystem
   - Enemy
+  - Forest
   layers:
   - Default
   - TransparentFX

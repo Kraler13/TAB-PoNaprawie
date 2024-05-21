@@ -123,16 +123,10 @@ public class InputMenager : MonoBehaviour
 
             if (Physics.Raycast(ray, out hit, Mathf.Infinity, building))
             {
-                Debug.Log($"Raycast hit: {hit.transform.gameObject.name}, tag: {hit.transform.gameObject.tag}");
                 if (hit.transform.gameObject.tag == "Building")
                 {
-                    Debug.Log("budynek");
                     selectedSquads.DeselectAll();
                 }
-            }
-            else
-            {
-                Debug.Log("Raycast did not hit any objects in the 'ground' layer.");
             }
         }
     }
@@ -145,9 +139,11 @@ public class InputMenager : MonoBehaviour
             selectedSquads.SquadsSelected[i].TryGetComponent<SquadLogic>(out SquadLogic squadLogic);
             if (squadLogic != null)
             {
+                squadLogic.isMoving = true;
                 if (squadLogic.isPatroling)
                 {
                     squadLogic.isPatroling = false;
+                    squadLogic.isAttacking = false;
                     int ind = squadPatroling.IndexOf(squadLogic.gameObject);
                     squadPatroling.RemoveAt(ind);
                 }
@@ -157,19 +153,15 @@ public class InputMenager : MonoBehaviour
                 selectedSquads.SquadsSelected[i].GetComponent<SingleUniteSquad>().MoveToDestination(listOfPoints[i]);
         }
     }
-
-
     void AttackEnemy(RaycastHit hit)
     {
-
         MathfHendle(hit.point);
-
         for (int i = 0; i < selectedSquads.SquadsSelected.Count; i++)
         {
-
             selectedSquads.SquadsSelected[i].TryGetComponent<SquadLogic>(out SquadLogic squadLogic);
             if (squadLogic != null)
             {
+                squadLogic.isMoving = false;
                 squadLogic.MoveToDestination(listOfPoints[i]);
                 squadLogic.enemy = hit.collider.gameObject;
             }

@@ -11,6 +11,7 @@ public class PlacementSystem : MonoBehaviour
     [SerializeField] private InputForGridSystem inputForGridSystem;
     [SerializeField] private Grid grid;
     [SerializeField] private BuildingsDataScriptableObj buildingsDataScriptableObj;
+    [SerializeField] private ResorsSriptableObj resorsSriptableObj;
     [SerializeField] private GameObject gridVisual;
     [SerializeField] private PrevievSystem previevSystem;
     private int selectedObjIndex = -1;
@@ -86,6 +87,14 @@ public class PlacementSystem : MonoBehaviour
             buildingsWithMoreRange.Add(newBuilding.GetComponentInChildren<BuildInRange>());
             newBuilding.GetComponentInChildren<BoxCollider>().enabled = true;
         }
+        if (buildingsDataScriptableObj.buildingsDatas[selectedObjIndex].ResorseBuilding)
+        {
+            if (newBuilding.GetComponentInChildren<ResorsGathering>().forestBuilding)
+            {
+                resorsSriptableObj.ForestCountTiles = resorsSriptableObj.ForestCountTilesToAdd;
+                resorsSriptableObj.ForestCountTilesToAdd = 0;
+            }
+        }
         newBuilding.transform.position = grid.CellToWorld(gridPosition);
         placedBuildings.Add(newBuilding);
         Rigidbody rb = newBuilding.GetComponentInChildren<Rigidbody>();
@@ -106,7 +115,6 @@ public class PlacementSystem : MonoBehaviour
             if(building.isValid)
                 isValid = true;
         }
-        Debug.Log(isValid);
         if (isValid && !isColliding)
         {
             return true;           

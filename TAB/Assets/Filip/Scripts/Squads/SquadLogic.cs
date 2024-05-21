@@ -12,7 +12,6 @@ using UnityEngine.UI;
 //przypisujemy odpowiedni Button do danej jednostki
 public class SquadLogic : MonoBehaviour
 {
-    [SerializeField] private LayerMask ground;
     [SerializeField] private float distanceThreshold = 1.0f;
     [SerializeField] private float RotationSpeed = 360f;
     public float hp = 100;
@@ -28,6 +27,7 @@ public class SquadLogic : MonoBehaviour
     public List<GameObject> ListOfEnemys;
     public bool isPatroling = false;
     public bool GoBackInPatrol = false;
+    public bool isMoving = false;
     public Vector3 PatrolTargetPosition;
     public int CurentUnitesCount;
     public int StartingUnitesCount;
@@ -58,11 +58,11 @@ public class SquadLogic : MonoBehaviour
         {
             enemy = ListOfEnemys[0];
         }
-        if (enemy != null)
+        if (enemy != null && !isMoving)
         {
             MoveToDestination(enemy.transform.position);
         }
-        if (isAttacking && whiteWithAttack)
+        else if (isAttacking && whiteWithAttack)
             StartCoroutine(Attack());
 
     }
