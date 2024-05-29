@@ -6,18 +6,41 @@ using Unity.VisualScripting;
 using UnityEditor.ShaderKeywordFilter;
 using UnityEngine;
 using System.Linq;
+using UnityEngine.AI;
+
 public class InputMenager : MonoBehaviour
 {
-    [SerializeField] SquadSelection selectedSquads;
+    [SerializeField] private SquadSelection selectedSquads;
     [SerializeField] private List<Vector3> listOfPoints = new List<Vector3>();
-    [SerializeField] LayerMask ground;
+    [SerializeField] private List<GameObject> squadPatroling = new List<GameObject>();
+    [SerializeField] private List<Vector3> oldPositionInPatrol = new List<Vector3>();
+    [SerializeField] private List<Vector3> newPositionInPatrol = new List<Vector3>();
+    [SerializeField] private LayerMask ground;
+    [SerializeField] private LayerMask enemy;
+    [SerializeField] private LayerMask building;
 
+    public bool startPatrol = false;
     private float distanceBetweenSquads = 5;
-
+    private bool patrolCheker;
+    private LayerMask combinedLayerMask;
+    private BuildingActionButtons buildingActionButtons;
+    private void Start()
+    {
+        combinedLayerMask = ground | enemy;
+        buildingActionButtons = GetComponent<BuildingActionButtons>();
+    }
     void Update()
     {
-        SquadHandleInput();
         BuildingSelection();
+        foreach (var squad in squadPatroling)
+        {
+            var squadLogic = squad.GetComponent<SquadLogic>();
+            if (squadLogic.isPatroling && squadLogic.GoBackInPatrol)
+            {
+                Patrol();
+            }
+        }
+        SquadHandleInput();
     }
 
     void SquadHandleInput()
@@ -28,20 +51,71 @@ public class InputMenager : MonoBehaviour
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
 
-            if (Physics.Raycast(ray, out hit, Mathf.Infinity, ground))
-            {                
-                if (hit.transform.gameObject.tag == "Enemy")
+            if (Physics.Raycast(ray, out hit, Mathf.Infinity, combinedLayerMask))
+            {
+                if (startPatrol)
                 {
-                    AttackEnemy(hit);
+                    StartPatrol(hit);
+                    return;
+                }
+                if (hit.transform.gameObject.tag != "Enemy")
+                {
+                    JustMoving(hit);
+                    return;
                 }
                 else
                 {
-                    JustMoving(hit);
+                    AttackEnemy(hit);
+                }
+                
+            }
+        }
+    }
+    void StartPatrol(RaycastHit hit)
+    {
+        patrolCheker = true;
+        newPositionInPatrol.Clear();
+        MathfHendle(hit.point);
+        startPatrol = false;
+        squadPatroling.Clear();
+        oldPositionInPatrol.Clear();
+        for (int i = 0; i < selectedSquads.SquadsSelected.Count; i++)
+        {
+            squadPatroling.Add(selectedSquads.SquadsSelected[i]);
+            oldPositionInPatrol.Add(selectedSquads.SquadsSelected[i].transform.position);
+            selectedSquads.SquadsSelected[i].TryGetComponent<SquadLogic>(out SquadLogic squadLogic);
+            if (squadLogic != null)
+            {
+                squadLogic.isPatroling = true;
+                squadLogic.PatrolTargetPosition = newPositionInPatrol[i];
+                squadLogic.MoveToDestination(newPositionInPatrol[i]);
+            }
+            else
+                selectedSquads.SquadsSelected[i].GetComponent<SingleUniteSquad>().MoveToDestination(listOfPoints[i]);
+        }
+    }
+    void Patrol()
+    {
+        patrolCheker = !patrolCheker;
+
+        for (int i = 0; i < squadPatroling.Count; i++)
+        {
+            squadPatroling[i].TryGetComponent<SquadLogic>(out SquadLogic squadLogic);
+            if (squadLogic != null)
+            {
+                if (patrolCheker)
+                {
+                    squadLogic.MoveToDestination(oldPositionInPatrol[i]);
+                    squadLogic.PatrolTargetPosition = oldPositionInPatrol[i];
+                }
+                else
+                {
+                    squadLogic.MoveToDestination(newPositionInPatrol[i]);
+                    squadLogic.PatrolTargetPosition = newPositionInPatrol[i];
                 }
             }
         }
     }
-
     void BuildingSelection()
     {
         if (Input.GetMouseButtonDown(0))
@@ -49,11 +123,13 @@ public class InputMenager : MonoBehaviour
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
 
-            if (Physics.Raycast(ray, out hit, Mathf.Infinity, ground))
+            if (Physics.Raycast(ray, out hit, Mathf.Infinity, building))
             {
-                if (hit.transform.gameObject.tag == "Objective")
+                if (hit.transform.gameObject.tag == "Building")
                 {
+                    Debug.Log("BUILD");
                     selectedSquads.DeselectAll();
+                    buildingActionButtons.OnBuildingCliced(hit);
                 }
             }
         }
@@ -67,25 +143,31 @@ public class InputMenager : MonoBehaviour
             selectedSquads.SquadsSelected[i].TryGetComponent<SquadLogic>(out SquadLogic squadLogic);
             if (squadLogic != null)
             {
+                if (squadLogic.isPatroling)
+                {
+                    squadLogic.isPatroling = false;
+                    int ind = squadPatroling.IndexOf(squadLogic.gameObject);
+                    squadPatroling.RemoveAt(ind);
+                }
+                squadLogic.isAttacking = false;
                 squadLogic.MoveToDestination(listOfPoints[i]);
+                squadLogic.isMoving = true;
             }
             else
+            {
                 selectedSquads.SquadsSelected[i].GetComponent<SingleUniteSquad>().MoveToDestination(listOfPoints[i]);
+            }
         }
     }
-
-    
     void AttackEnemy(RaycastHit hit)
     {
-        
         MathfHendle(hit.point);
-
         for (int i = 0; i < selectedSquads.SquadsSelected.Count; i++)
         {
-
             selectedSquads.SquadsSelected[i].TryGetComponent<SquadLogic>(out SquadLogic squadLogic);
             if (squadLogic != null)
             {
+                squadLogic.isMoving = false;
                 squadLogic.MoveToDestination(listOfPoints[i]);
                 squadLogic.enemy = hit.collider.gameObject;
             }
@@ -95,6 +177,7 @@ public class InputMenager : MonoBehaviour
     }
     void MathfHendle(Vector3 hitPointValue)
     {
+
         listOfPoints.Clear();
         Vector3 pointA = selectedSquads.SquadsSelected[0].transform.position;
         Vector3 pointB = hitPointValue;
@@ -111,6 +194,13 @@ public class InputMenager : MonoBehaviour
         listOfPoints.Add(pointB - offset * 2);
         listOfPoints.Add(pointB - offset * 2 + distanceBetweenSquads * new Vector3(normalizedAB.x, 0, -normalizedAB.z));
         listOfPoints.Add(pointB - offset * 2 - distanceBetweenSquads * new Vector3(normalizedAB.x, 0, -normalizedAB.z));
-    } 
+        if (startPatrol)
+        {
+            for (int i = 0; i < selectedSquads.SquadsSelected.Count; i++)
+            {
+                newPositionInPatrol.Add(listOfPoints[i]);
+            }
+        }
+    }
 }
 

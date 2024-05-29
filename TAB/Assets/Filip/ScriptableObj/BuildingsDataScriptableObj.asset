@@ -15,11 +15,29 @@ MonoBehaviour:
   buildingsDatas:
   - <Name>k__BackingField: B1
     <ID>k__BackingField: 1
-    <Size>k__BackingField: {x: 5, y: 5}
-    <Prefab>k__BackingField: {fileID: 6532390383674311737, guid: 64bfa2527fe6b0a4a98c458b03219d9c,
+    <Size>k__BackingField: {x: 2, y: 2}
+    <Prefab>k__BackingField: {fileID: 2402490883217081069, guid: 64bfa2527fe6b0a4a98c458b03219d9c,
       type: 3}
+    <BuildingWithMoreRang>k__BackingField: 0
+    <ResorseBuilding>k__BackingField: 0
   - <Name>k__BackingField: B2
     <ID>k__BackingField: 2
-    <Size>k__BackingField: {x: 3, y: 3}
-    <Prefab>k__BackingField: {fileID: 8450402143625591390, guid: 51b804daf00f2ad4cb98fdf95f0e0965,
+    <Size>k__BackingField: {x: 4, y: 2}
+    <Prefab>k__BackingField: {fileID: 4350886507202913888, guid: 51b804daf00f2ad4cb98fdf95f0e0965,
       type: 3}
+    <BuildingWithMoreRang>k__BackingField: 0
+    <ResorseBuilding>k__BackingField: 0
+  - <Name>k__BackingField: B3
+    <ID>k__BackingField: 3
+    <Size>k__BackingField: {x: 3, y: 3}
+    <Prefab>k__BackingField: {fileID: 5904265975729718021, guid: 2fc845a73f275404c918cbd468151632,
+      type: 3}
+    <BuildingWithMoreRang>k__BackingField: 1
+    <ResorseBuilding>k__BackingField: 0
+  - <Name>k__BackingField: ForestBuilding
+    <ID>k__BackingField: 4
+    <Size>k__BackingField: {x: 1, y: 1}
+    <Prefab>k__BackingField: {fileID: 6091805545824438384, guid: 16173363530da53468795d506ff7963c,
+      type: 3}
+    <BuildingWithMoreRang>k__BackingField: 0
+    <ResorseBuilding>k__BackingField: 1

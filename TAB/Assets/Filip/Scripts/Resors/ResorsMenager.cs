@@ -8,14 +8,9 @@ public class ResorsMenager : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI resorsOneTxt;
     [SerializeField] private TextMeshProUGUI resorsTwoTxt;
-    [SerializeField] private ResorsSriptableObj ResorsSriptableObj;
+    [SerializeField] private ResorsSriptableObj resorsSriptableObj;
     private bool k = true;
-//    void Start()
-//    {
-////#if UNITY_EDITOR
-        
-////#endif
-//    }
+
     private void FixedUpdate()
     {
         if (k)
@@ -25,8 +20,9 @@ public class ResorsMenager : MonoBehaviour
     IEnumerator UpdateResorsOnHUD()
     {
         k = false;
-        resorsOneTxt.text = ResorsSriptableObj.ResorsOne.ToString();
-        resorsTwoTxt.text = ResorsSriptableObj.ResorsTwo.ToString();
+        resorsSriptableObj.ResorsOne += resorsSriptableObj.ForestCountTiles;
+        resorsOneTxt.text = resorsSriptableObj.ResorsOne.ToString();
+        resorsTwoTxt.text = resorsSriptableObj.ResorsTwo.ToString();
         yield return new WaitForSeconds(1);
         k = true;
     }

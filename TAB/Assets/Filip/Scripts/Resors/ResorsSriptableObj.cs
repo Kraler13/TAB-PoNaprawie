@@ -7,4 +7,7 @@ public class ResorsSriptableObj : ScriptableObject
 {
     public float ResorsOne;
     public float ResorsTwo;
+
+    public int ForestCountTiles;
+    public int ForestCountTilesToAdd;
 }

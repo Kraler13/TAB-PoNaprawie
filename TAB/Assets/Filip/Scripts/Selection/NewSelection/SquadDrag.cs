@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class SquadDrag : MonoBehaviour
 {
+    public bool isSelectingDrag = false;
     Camera myCamera;
     [SerializeField] RectTransform boxVisual;
 
@@ -24,11 +25,13 @@ public class SquadDrag : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
+            isSelectingDrag = true;
             startPosition = Input.mousePosition; 
             selectionBox = new Rect();
         }
         if (Input.GetMouseButton(0))
         {
+            isSelectingDrag = true;
             endPosition = Input.mousePosition;
             DrawVisual();
             DrawSelection();
@@ -39,6 +42,7 @@ public class SquadDrag : MonoBehaviour
             startPosition = Vector2.zero;
             endPosition = Vector2.zero;
             DrawVisual();
+            isSelectingDrag = false;
         }
     }
 
