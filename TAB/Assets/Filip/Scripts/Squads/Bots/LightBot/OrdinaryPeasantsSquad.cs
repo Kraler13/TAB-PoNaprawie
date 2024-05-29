@@ -30,11 +30,14 @@ public class OrdinaryPeasantsSquad : MonoBehaviour
 
     private void AllButtons()
     {
+        foreach (var button in ActionButtonsScriptableObj.buttons)
+        {
+            button.onClick.RemoveAllListeners();
+            button.GetComponentInChildren<TextMeshProUGUI>().text = "";
+        }
         ActionButtonsScriptableObj.buttons[0].GetComponentInChildren<TextMeshProUGUI>().text = "dodaj";
-        ActionButtonsScriptableObj.buttons[0].onClick.RemoveAllListeners();
         ActionButtonsScriptableObj.buttons[0].onClick.AddListener(Multiply);
         ActionButtonsScriptableObj.buttons[1].GetComponentInChildren<TextMeshProUGUI>().text = "Patroluj";
-        ActionButtonsScriptableObj.buttons[1].onClick.RemoveAllListeners();
         ActionButtonsScriptableObj.buttons[1].onClick.AddListener(Patrol);
     }
     void Multiply()

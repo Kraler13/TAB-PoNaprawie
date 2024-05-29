@@ -28,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 6091805545824438384}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 11, y: 1.5, z: 13}
-  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6091805546379117079}
@@ -188,11 +188,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   resorsSriptableObj: {fileID: 11400000, guid: 696341b08440c7249af2e4d7507d6ecf, type: 2}
-  forestBuilding: 1
   stoneBuilding: 0
   startingBoxColliderSize: 1
   endingBoxColliderSize: 4
   boxCollider: {fileID: 6091805546379117076}
+  forestBuilding: 1
 --- !u!208 &9073322752655358888
 NavMeshObstacle:
   m_ObjectHideFlags: 0

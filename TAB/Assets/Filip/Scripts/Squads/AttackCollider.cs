@@ -9,6 +9,7 @@ public class AttackCollider : MonoBehaviour
     {
         if (other.tag == "Enemy")
         {
+            SquadLogic.isMoving = false;
             SquadLogic.isAttacking = true;
         }
     }

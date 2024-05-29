@@ -17,6 +17,10 @@ public class SquadSeeEnemyCollider : MonoBehaviour
     {
         if (other.tag == "Enemy")
         {
+            if (SquadLogic.enemy.name == other.name)
+            {
+                SquadLogic.enemy = null;
+            }
             SquadLogic.ListOfEnemys.Remove(other.gameObject);
         }
     }

@@ -13,6 +13,7 @@ TagManager:
   - PlacmentSystem
   - Enemy
   - Forest
+  - Builder
   layers:
   - Default
   - TransparentFX
@@ -27,7 +28,7 @@ TagManager:
   - Placement
   - Fog Stencil
   - Building
-  - 
+  - Enemy
   - 
   - 
   - 

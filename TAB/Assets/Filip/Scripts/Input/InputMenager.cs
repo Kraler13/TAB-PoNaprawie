@@ -16,12 +16,19 @@ public class InputMenager : MonoBehaviour
     [SerializeField] private List<Vector3> oldPositionInPatrol = new List<Vector3>();
     [SerializeField] private List<Vector3> newPositionInPatrol = new List<Vector3>();
     [SerializeField] private LayerMask ground;
+    [SerializeField] private LayerMask enemy;
     [SerializeField] private LayerMask building;
 
     public bool startPatrol = false;
     private float distanceBetweenSquads = 5;
     private bool patrolCheker;
-
+    private LayerMask combinedLayerMask;
+    private BuildingActionButtons buildingActionButtons;
+    private void Start()
+    {
+        combinedLayerMask = ground | enemy;
+        buildingActionButtons = GetComponent<BuildingActionButtons>();
+    }
     void Update()
     {
         BuildingSelection();
@@ -44,34 +51,34 @@ public class InputMenager : MonoBehaviour
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
 
-            if (Physics.Raycast(ray, out hit, Mathf.Infinity, ground))
+            if (Physics.Raycast(ray, out hit, Mathf.Infinity, combinedLayerMask))
             {
                 if (startPatrol)
                 {
                     StartPatrol(hit);
                     return;
                 }
-                if (hit.transform.gameObject.tag == "Enemy")
+                if (hit.transform.gameObject.tag != "Enemy")
                 {
-                    AttackEnemy(hit);
+                    JustMoving(hit);
+                    return;
                 }
                 else
                 {
-                    JustMoving(hit);
+                    AttackEnemy(hit);
                 }
+                
             }
         }
     }
     void StartPatrol(RaycastHit hit)
     {
         patrolCheker = true;
+        newPositionInPatrol.Clear();
         MathfHendle(hit.point);
-
         startPatrol = false;
         squadPatroling.Clear();
         oldPositionInPatrol.Clear();
-
-
         for (int i = 0; i < selectedSquads.SquadsSelected.Count; i++)
         {
             squadPatroling.Add(selectedSquads.SquadsSelected[i]);
@@ -100,18 +107,13 @@ public class InputMenager : MonoBehaviour
                 {
                     squadLogic.MoveToDestination(oldPositionInPatrol[i]);
                     squadLogic.PatrolTargetPosition = oldPositionInPatrol[i];
-                    Debug.Log(oldPositionInPatrol[i]);
                 }
                 else
                 {
                     squadLogic.MoveToDestination(newPositionInPatrol[i]);
                     squadLogic.PatrolTargetPosition = newPositionInPatrol[i];
-                    Debug.Log(newPositionInPatrol[i]);
                 }
-
-
             }
-
         }
     }
     void BuildingSelection()
@@ -125,7 +127,9 @@ public class InputMenager : MonoBehaviour
             {
                 if (hit.transform.gameObject.tag == "Building")
                 {
+                    Debug.Log("BUILD");
                     selectedSquads.DeselectAll();
+                    buildingActionButtons.OnBuildingCliced(hit);
                 }
             }
         }
@@ -139,18 +143,20 @@ public class InputMenager : MonoBehaviour
             selectedSquads.SquadsSelected[i].TryGetComponent<SquadLogic>(out SquadLogic squadLogic);
             if (squadLogic != null)
             {
-                squadLogic.isMoving = true;
                 if (squadLogic.isPatroling)
                 {
                     squadLogic.isPatroling = false;
-                    squadLogic.isAttacking = false;
                     int ind = squadPatroling.IndexOf(squadLogic.gameObject);
                     squadPatroling.RemoveAt(ind);
                 }
+                squadLogic.isAttacking = false;
                 squadLogic.MoveToDestination(listOfPoints[i]);
+                squadLogic.isMoving = true;
             }
             else
+            {
                 selectedSquads.SquadsSelected[i].GetComponent<SingleUniteSquad>().MoveToDestination(listOfPoints[i]);
+            }
         }
     }
     void AttackEnemy(RaycastHit hit)

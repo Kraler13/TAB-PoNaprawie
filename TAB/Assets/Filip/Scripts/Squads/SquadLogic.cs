@@ -14,6 +14,7 @@ public class SquadLogic : MonoBehaviour
 {
     [SerializeField] private float distanceThreshold = 1.0f;
     [SerializeField] private float RotationSpeed = 360f;
+    [SerializeField] private float damage = 10f;
     public float hp = 100;
     public GameObject Unite;
     public List<GameObject> ListOfSpowningPoints;
@@ -33,6 +34,7 @@ public class SquadLogic : MonoBehaviour
     public int StartingUnitesCount;
     private NavMeshAgent navMeshAgent;
     private bool whiteWithAttack = true;
+    private bool stopPatroling = false;
 
     void Start()
     {
@@ -53,24 +55,40 @@ public class SquadLogic : MonoBehaviour
             else
                 GoBackInPatrol = false;
         }
-
         if (ListOfEnemys.Count != 0 && enemy == null)
         {
             enemy = ListOfEnemys[0];
         }
-        if (enemy != null && !isMoving)
+        if (enemy != null && !isMoving && !isAttacking)
         {
             MoveToDestination(enemy.transform.position);
         }
-        else if (isAttacking && whiteWithAttack)
+        else if (isAttacking && whiteWithAttack && !isMoving)
+        {
             StartCoroutine(Attack());
-
+        }
+        else
+        {
+            navMeshAgent.speed = SquadSpeed;
+        }
+        if (!navMeshAgent.pathPending && navMeshAgent.remainingDistance <= navMeshAgent.stoppingDistance)
+        {
+            if (!navMeshAgent.hasPath || navMeshAgent.velocity.sqrMagnitude == 0f)
+            {
+                isMoving = false;
+            }
+        }
+        if (isPatroling && ListOfEnemys.Count != 0 && stopPatroling)
+        {
+            MoveToDestination(PatrolTargetPosition);
+            stopPatroling = false;
+        }
     }
 
     public void MoveToDestination(Vector3 destination)
     {
         Vector3 direction = destination - transform.position;
-        navMeshAgent.SetDestination(destination);
+        navMeshAgent.SetDestination(destination);      
     }
 
 
@@ -82,7 +100,7 @@ public class SquadLogic : MonoBehaviour
         {
             navMeshAgent.speed = 0;
             yield return new WaitForSeconds(1);
-            enemy.GetComponent<Health>().TakeDamage(1 * Unites.Count);
+            enemy.GetComponent<Health>().TakeDamage(damage * Unites.Count);
             SeeEnemy = true;
         }
         else
@@ -90,5 +108,6 @@ public class SquadLogic : MonoBehaviour
             navMeshAgent.speed = SquadSpeed;
         }
         whiteWithAttack = true;
+        stopPatroling = true;
     }
 }
