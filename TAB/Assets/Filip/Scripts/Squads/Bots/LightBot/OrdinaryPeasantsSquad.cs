@@ -10,7 +10,7 @@ using static UnityEditor.Progress;
 //KA¯DY SQUADBUTTON MA SWOJ¥ LOGIKÊ
 public class OrdinaryPeasantsSquad : MonoBehaviour
 {
-    [SerializeField] private ActionButtonsScriptableObj ActionButtonsScriptableObj;
+    [SerializeField] private ActionButtonsScriptableObj actionButtonsScriptableObj;
     private int maxUnites = 9;
     public GameObject SquadConnectedToButton;
     private SquadLogic squadLogic;
@@ -30,15 +30,15 @@ public class OrdinaryPeasantsSquad : MonoBehaviour
 
     private void AllButtons()
     {
-        foreach (var button in ActionButtonsScriptableObj.buttons)
+        foreach (var button in actionButtonsScriptableObj.buttons)
         {
             button.onClick.RemoveAllListeners();
             button.GetComponentInChildren<TextMeshProUGUI>().text = "";
         }
-        ActionButtonsScriptableObj.buttons[0].GetComponentInChildren<TextMeshProUGUI>().text = "dodaj";
-        ActionButtonsScriptableObj.buttons[0].onClick.AddListener(Multiply);
-        ActionButtonsScriptableObj.buttons[1].GetComponentInChildren<TextMeshProUGUI>().text = "Patroluj";
-        ActionButtonsScriptableObj.buttons[1].onClick.AddListener(Patrol);
+        actionButtonsScriptableObj.buttons[0].GetComponentInChildren<TextMeshProUGUI>().text = "dodaj";
+        actionButtonsScriptableObj.buttons[0].onClick.AddListener(Multiply);
+        actionButtonsScriptableObj.buttons[1].GetComponentInChildren<TextMeshProUGUI>().text = "Patroluj";
+        actionButtonsScriptableObj.buttons[1].onClick.AddListener(Patrol);
     }
     void Multiply()
     {

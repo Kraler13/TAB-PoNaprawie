@@ -7,7 +7,6 @@ public class FirstButtonClick : MonoBehaviour
 {
     [SerializeField] private SquadSelection squadSelection;
     private bool wasClicked = false;
-    // Update is called once per frame
     void FixedUpdate()
     {
         if (squadSelection.buttonList.Count != 0 && !wasClicked)
@@ -15,7 +14,7 @@ public class FirstButtonClick : MonoBehaviour
             transform.GetChild(0).GetComponent<Button>().onClick.Invoke();
             wasClicked = true;
         }
-        else if (squadSelection.buttonList == null)
+        else if (squadSelection.buttonList.Count == 0)
         {
             wasClicked = false;
         }

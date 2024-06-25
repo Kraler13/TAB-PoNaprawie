@@ -227,7 +227,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be9c6c0261a2a4a409d400b96cb879c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ActionButtonsScriptableObj: {fileID: 11400000, guid: efc08a981dfa5c340b1c77d5cd18fa05,
+  actionButtonsScriptableObj: {fileID: 11400000, guid: efc08a981dfa5c340b1c77d5cd18fa05,
     type: 2}
   SquadConnectedToButton: {fileID: 0}
   HPImage: {fileID: 0}

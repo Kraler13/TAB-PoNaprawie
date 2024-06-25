@@ -11,6 +11,14 @@ public class ResorsMenager : MonoBehaviour
     [SerializeField] private ResorsSriptableObj resorsSriptableObj;
     private bool k = true;
 
+    private void Start()
+    {
+        if (resorsSriptableObj.isNewGame)
+        {
+            resorsSriptableObj.ForestCountTilesToAdd = 0;
+            resorsSriptableObj.ForestCountTiles = 0;
+        }
+    }
     private void FixedUpdate()
     {
         if (k)

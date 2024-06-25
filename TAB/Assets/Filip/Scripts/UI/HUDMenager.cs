@@ -8,6 +8,7 @@ public class HUDMenager : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
 {
     [SerializeField] private GameObject selection;
     [SerializeField] private SquadDrag squadDrag;
+    [SerializeField] private InputMenager inputMenager;
     public GameObject OneRowButtons;
     public GameObject TwoRowButtons;
     private GameObject k;
@@ -19,6 +20,14 @@ public class HUDMenager : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
     }
     void Update()
     {
+        if (isOverHUD)
+        {
+            inputMenager.enabled = false;
+        }
+        else
+        {
+            inputMenager.enabled = true;
+        }
         if (k != null && !squadDrag.isSelectingDrag)
         {
             selection.SetActive(false);

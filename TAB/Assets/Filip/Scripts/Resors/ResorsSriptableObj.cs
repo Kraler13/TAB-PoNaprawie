@@ -10,4 +10,6 @@ public class ResorsSriptableObj : ScriptableObject
 
     public int ForestCountTiles;
     public int ForestCountTilesToAdd;
+
+    public bool isNewGame = true;
 }

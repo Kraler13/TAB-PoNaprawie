@@ -30,11 +30,14 @@ public class SquadLogic : MonoBehaviour
     public bool GoBackInPatrol = false;
     public bool isMoving = false;
     public Vector3 PatrolTargetPosition;
+    public Vector3 PatrolStartingPosition;
     public int CurentUnitesCount;
     public int StartingUnitesCount;
     private NavMeshAgent navMeshAgent;
     private bool whiteWithAttack = true;
     private bool stopPatroling = false;
+    private Vector3 justForPatrolSwitch;
+
 
     void Start()
     {
@@ -50,10 +53,11 @@ public class SquadLogic : MonoBehaviour
             float distanceToTarget = Vector3.Distance(transform.position, PatrolTargetPosition);
             if (distanceToTarget < distanceThreshold)
             {
-                GoBackInPatrol = true;
+                Patrol();
+                //GoBackInPatrol = true;
             }
-            else
-                GoBackInPatrol = false;
+            //else
+                //GoBackInPatrol = false;
         }
         if (ListOfEnemys.Count != 0 && enemy == null)
         {
@@ -87,7 +91,6 @@ public class SquadLogic : MonoBehaviour
 
     public void MoveToDestination(Vector3 destination)
     {
-        Vector3 direction = destination - transform.position;
         navMeshAgent.SetDestination(destination);      
     }
 
@@ -109,5 +112,20 @@ public class SquadLogic : MonoBehaviour
         }
         whiteWithAttack = true;
         stopPatroling = true;
+    }
+
+    public void StartPatrol(Vector3 destination)
+    {
+        PatrolTargetPosition = destination;
+        PatrolStartingPosition = gameObject.transform.position;
+        MoveToDestination(PatrolTargetPosition);
+    }
+
+    private void Patrol()
+    {
+        justForPatrolSwitch = PatrolStartingPosition;
+        PatrolStartingPosition = PatrolTargetPosition;
+        PatrolTargetPosition = justForPatrolSwitch;
+        MoveToDestination(PatrolTargetPosition);
     }
 }

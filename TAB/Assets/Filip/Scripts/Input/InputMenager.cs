@@ -7,6 +7,7 @@ using UnityEditor.ShaderKeywordFilter;
 using UnityEngine;
 using System.Linq;
 using UnityEngine.AI;
+using TMPro;
 
 public class InputMenager : MonoBehaviour
 {
@@ -15,6 +16,7 @@ public class InputMenager : MonoBehaviour
     [SerializeField] private List<GameObject> squadPatroling = new List<GameObject>();
     [SerializeField] private List<Vector3> oldPositionInPatrol = new List<Vector3>();
     [SerializeField] private List<Vector3> newPositionInPatrol = new List<Vector3>();
+    [SerializeField] private ActionButtonsScriptableObj actionButtonsScriptableObj;
     [SerializeField] private LayerMask ground;
     [SerializeField] private LayerMask enemy;
     [SerializeField] private LayerMask building;
@@ -22,27 +24,50 @@ public class InputMenager : MonoBehaviour
     public bool startPatrol = false;
     private float distanceBetweenSquads = 5;
     private bool patrolCheker;
-    private LayerMask combinedLayerMask;
+    private LayerMask combinedLayerMaskForEnemy;
+    private LayerMask combinedLayerMaskForBuilding;
     private BuildingActionButtons buildingActionButtons;
     private void Start()
     {
-        combinedLayerMask = ground | enemy;
+        combinedLayerMaskForEnemy = ground | enemy;
+        combinedLayerMaskForBuilding = ground | building;
         buildingActionButtons = GetComponent<BuildingActionButtons>();
     }
     void Update()
     {
         BuildingSelection();
-        foreach (var squad in squadPatroling)
-        {
-            var squadLogic = squad.GetComponent<SquadLogic>();
-            if (squadLogic.isPatroling && squadLogic.GoBackInPatrol)
-            {
-                Patrol();
-            }
-        }
+        //foreach (var squad in squadPatroling)
+        //{
+        //    var squadLogic = squad.GetComponent<SquadLogic>();
+        //    if (squadLogic.isPatroling && squadLogic.GoBackInPatrol)
+        //    {
+        //        Patrol();
+        //    }
+        //}
         SquadHandleInput();
+        ClearActionButtons();
     }
 
+    void ClearActionButtons()
+    {
+        if (Input.GetMouseButtonDown(0) && selectedSquads.SquadsSelected != null)
+        {
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hit;
+
+            if (Physics.Raycast(ray, out hit, Mathf.Infinity, combinedLayerMaskForBuilding))
+            {
+                if (hit.transform.gameObject.tag != "Building")
+                {
+                    foreach (var button in actionButtonsScriptableObj.buttons)
+                    {
+                        button.onClick.RemoveAllListeners();
+                        button.GetComponentInChildren<TextMeshProUGUI>().text = "";
+                    }
+                }
+            }
+        }
+    }
     void SquadHandleInput()
     {
         var table = selectedSquads.SquadsSelected;
@@ -51,7 +76,7 @@ public class InputMenager : MonoBehaviour
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
 
-            if (Physics.Raycast(ray, out hit, Mathf.Infinity, combinedLayerMask))
+            if (Physics.Raycast(ray, out hit, Mathf.Infinity, combinedLayerMaskForEnemy))
             {
                 if (startPatrol)
                 {
@@ -73,49 +98,50 @@ public class InputMenager : MonoBehaviour
     }
     void StartPatrol(RaycastHit hit)
     {
-        patrolCheker = true;
-        newPositionInPatrol.Clear();
+        //patrolCheker = true;
+        //newPositionInPatrol.Clear();
         MathfHendle(hit.point);
         startPatrol = false;
-        squadPatroling.Clear();
-        oldPositionInPatrol.Clear();
+        //squadPatroling.Clear();
+        //oldPositionInPatrol.Clear();
         for (int i = 0; i < selectedSquads.SquadsSelected.Count; i++)
         {
-            squadPatroling.Add(selectedSquads.SquadsSelected[i]);
-            oldPositionInPatrol.Add(selectedSquads.SquadsSelected[i].transform.position);
+            //squadPatroling.Add(selectedSquads.SquadsSelected[i]);
+            //oldPositionInPatrol.Add(selectedSquads.SquadsSelected[i].transform.position);
             selectedSquads.SquadsSelected[i].TryGetComponent<SquadLogic>(out SquadLogic squadLogic);
             if (squadLogic != null)
             {
                 squadLogic.isPatroling = true;
-                squadLogic.PatrolTargetPosition = newPositionInPatrol[i];
-                squadLogic.MoveToDestination(newPositionInPatrol[i]);
+                squadLogic.StartPatrol(listOfPoints[i]);
+                //squadLogic.PatrolTargetPosition = newPositionInPatrol[i];
+                //squadLogic.MoveToDestination(newPositionInPatrol[i]);
             }
-            else
-                selectedSquads.SquadsSelected[i].GetComponent<SingleUniteSquad>().MoveToDestination(listOfPoints[i]);
+            //else
+            //    selectedSquads.SquadsSelected[i].GetComponent<SingleUniteSquad>().MoveToDestination(listOfPoints[i]);
         }
     }
-    void Patrol()
-    {
-        patrolCheker = !patrolCheker;
+    //void Patrol()
+    //{
+    //    patrolCheker = !patrolCheker;
 
-        for (int i = 0; i < squadPatroling.Count; i++)
-        {
-            squadPatroling[i].TryGetComponent<SquadLogic>(out SquadLogic squadLogic);
-            if (squadLogic != null)
-            {
-                if (patrolCheker)
-                {
-                    squadLogic.MoveToDestination(oldPositionInPatrol[i]);
-                    squadLogic.PatrolTargetPosition = oldPositionInPatrol[i];
-                }
-                else
-                {
-                    squadLogic.MoveToDestination(newPositionInPatrol[i]);
-                    squadLogic.PatrolTargetPosition = newPositionInPatrol[i];
-                }
-            }
-        }
-    }
+    //    for (int i = 0; i < squadPatroling.Count; i++)
+    //    {
+    //        squadPatroling[i].TryGetComponent<SquadLogic>(out SquadLogic squadLogic);
+    //        if (squadLogic != null)
+    //        {
+    //            if (patrolCheker)
+    //            {
+    //                squadLogic.MoveToDestination(oldPositionInPatrol[i]);
+    //                squadLogic.PatrolTargetPosition = oldPositionInPatrol[i];
+    //            }
+    //            else
+    //            {
+    //                squadLogic.MoveToDestination(newPositionInPatrol[i]);
+    //                squadLogic.PatrolTargetPosition = newPositionInPatrol[i];
+    //            }
+    //        }
+    //    }
+    //}
     void BuildingSelection()
     {
         if (Input.GetMouseButtonDown(0))
@@ -127,7 +153,6 @@ public class InputMenager : MonoBehaviour
             {
                 if (hit.transform.gameObject.tag == "Building")
                 {
-                    Debug.Log("BUILD");
                     selectedSquads.DeselectAll();
                     buildingActionButtons.OnBuildingCliced(hit);
                 }
@@ -146,8 +171,8 @@ public class InputMenager : MonoBehaviour
                 if (squadLogic.isPatroling)
                 {
                     squadLogic.isPatroling = false;
-                    int ind = squadPatroling.IndexOf(squadLogic.gameObject);
-                    squadPatroling.RemoveAt(ind);
+                    //int ind = squadPatroling.IndexOf(squadLogic.gameObject);
+                    //squadPatroling.RemoveAt(ind);
                 }
                 squadLogic.isAttacking = false;
                 squadLogic.MoveToDestination(listOfPoints[i]);
