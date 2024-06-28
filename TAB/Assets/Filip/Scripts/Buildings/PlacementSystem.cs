@@ -94,6 +94,11 @@ public class PlacementSystem : MonoBehaviour
                 resorsSriptableObj.ForestCountTiles = resorsSriptableObj.ForestCountTilesToAdd;
                 resorsSriptableObj.ForestCountTilesToAdd = 0;
             }
+            if (newBuilding.GetComponentInChildren<ResorsGathering>().stoneBuilding)
+            {
+                resorsSriptableObj.StoneCountTiles = resorsSriptableObj.StoneCountTilesToAdd;
+                resorsSriptableObj.StoneCountTilesToAdd = 0;
+            }
         }
         newBuilding.transform.position = grid.CellToWorld(gridPosition);
         placedBuildings.Add(newBuilding);

@@ -17,6 +17,8 @@ public class ResorsMenager : MonoBehaviour
         {
             resorsSriptableObj.ForestCountTilesToAdd = 0;
             resorsSriptableObj.ForestCountTiles = 0;
+            resorsSriptableObj.StoneCountTiles = 0;
+            resorsSriptableObj.StoneCountTilesToAdd = 0;
         }
     }
     private void FixedUpdate()
@@ -29,6 +31,7 @@ public class ResorsMenager : MonoBehaviour
     {
         k = false;
         resorsSriptableObj.ResorsOne += resorsSriptableObj.ForestCountTiles;
+        resorsSriptableObj.ResorsTwo += resorsSriptableObj.StoneCountTiles;
         resorsOneTxt.text = resorsSriptableObj.ResorsOne.ToString();
         resorsTwoTxt.text = resorsSriptableObj.ResorsTwo.ToString();
         yield return new WaitForSeconds(1);

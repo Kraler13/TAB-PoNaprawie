@@ -41,3 +41,10 @@ MonoBehaviour:
       type: 3}
     <BuildingWithMoreRang>k__BackingField: 0
     <ResorseBuilding>k__BackingField: 1
+  - <Name>k__BackingField: StoneBuilding
+    <ID>k__BackingField: 5
+    <Size>k__BackingField: {x: 2, y: 2}
+    <Prefab>k__BackingField: {fileID: 1671859053410535864, guid: dfe5aae644e6ce34788d20c1f603215d,
+      type: 3}
+    <BuildingWithMoreRang>k__BackingField: 0
+    <ResorseBuilding>k__BackingField: 1

@@ -13,8 +13,8 @@ TagManager:
   - PlacmentSystem
   - Enemy
   - Forest
-  - Builder
   - Ground
+  - Stone
   layers:
   - Default
   - TransparentFX
