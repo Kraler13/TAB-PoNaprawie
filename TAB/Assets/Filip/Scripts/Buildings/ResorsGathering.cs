@@ -21,7 +21,7 @@ public class ResorsGathering : MonoBehaviour
 
         if (other.tag == "Stone" && stoneBuilding)
         {
-            resorsSriptableObj.StoneCountTiles++;
+            resorsSriptableObj.StoneCountTilesToAdd++;
             Debug.Log(forestTiles);
         }
     }
@@ -36,7 +36,7 @@ public class ResorsGathering : MonoBehaviour
 
         if (other.tag == "Stone" && stoneBuilding)
         {
-            resorsSriptableObj.StoneCountTiles--;
+            resorsSriptableObj.StoneCountTilesToAdd--;
             Debug.Log(forestTiles);
         }
     }

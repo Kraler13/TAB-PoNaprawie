@@ -15,8 +15,6 @@ public class PlacementSystem : MonoBehaviour
     [SerializeField] private GameObject gridVisual;
     [SerializeField] private PrevievSystem previevSystem;
     private int selectedObjIndex = -1;
-    private GridData groundData;
-    private GridData buildingData;
     private List<GameObject> placedBuildings = new List<GameObject>();
     private Vector3Int lastDetectedPosition = Vector3Int.zero;
     public List<BuildInRange> buildingsWithMoreRange = new List<BuildInRange>();
@@ -25,8 +23,6 @@ public class PlacementSystem : MonoBehaviour
         var extender = GameObject.FindGameObjectWithTag("Building");
         buildingsWithMoreRange.Add(extender.GetComponentInChildren<BuildInRange>());
         StopPlacement();
-        groundData = new GridData();
-        buildingData = new GridData();
     }
 
     void Update()
@@ -91,12 +87,12 @@ public class PlacementSystem : MonoBehaviour
         {
             if (newBuilding.GetComponentInChildren<ResorsGathering>().forestBuilding)
             {
-                resorsSriptableObj.ForestCountTiles = resorsSriptableObj.ForestCountTilesToAdd;
+                resorsSriptableObj.ForestCountTiles += resorsSriptableObj.ForestCountTilesToAdd;
                 resorsSriptableObj.ForestCountTilesToAdd = 0;
             }
             if (newBuilding.GetComponentInChildren<ResorsGathering>().stoneBuilding)
             {
-                resorsSriptableObj.StoneCountTiles = resorsSriptableObj.StoneCountTilesToAdd;
+                resorsSriptableObj.StoneCountTiles += resorsSriptableObj.StoneCountTilesToAdd;
                 resorsSriptableObj.StoneCountTilesToAdd = 0;
             }
         }
@@ -105,10 +101,6 @@ public class PlacementSystem : MonoBehaviour
         Rigidbody rb = newBuilding.GetComponentInChildren<Rigidbody>();
         newBuilding.GetComponentInChildren<NavMeshObstacle>().enabled = true;
         Destroy(rb);
-        GridData selectedData = buildingsDataScriptableObj.buildingsDatas[selectedObjIndex].ID == 0 ? groundData : buildingData;
-        selectedData.AddObejctAt(gridPosition, buildingsDataScriptableObj.buildingsDatas[selectedObjIndex].Size,
-            buildingsDataScriptableObj.buildingsDatas[selectedObjIndex].ID,
-            placedBuildings.Count - 1);
         previevSystem.UpdatePosition(grid.CellToWorld(gridPosition), false);
     }
 
@@ -120,6 +112,7 @@ public class PlacementSystem : MonoBehaviour
             if(building.isValid)
                 isValid = true;
         }
+
         if (isValid && !isColliding)
         {
             return true;           
