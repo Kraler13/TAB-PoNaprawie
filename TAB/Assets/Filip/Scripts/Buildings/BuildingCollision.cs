@@ -13,7 +13,8 @@ public class BuildingCollision : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
-            if (other.CompareTag("Building"))
+            if (other.CompareTag("Building") ||
+            other.CompareTag("Forest"))
             {
                 placementSystem.isColliding = true;
             }       
@@ -21,7 +22,8 @@ public class BuildingCollision : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-            if (other.CompareTag("Building"))
+            if (other.CompareTag("Building") || 
+            other.CompareTag("Forest"))
             {
                 placementSystem.isColliding = false;
             }       

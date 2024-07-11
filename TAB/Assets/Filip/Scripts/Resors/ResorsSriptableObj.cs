@@ -15,4 +15,7 @@ public class ResorsSriptableObj : ScriptableObject
     public int StoneCountTilesToAdd;
 
     public bool isNewGame = true;
+
+    public List<BoxCollider> boxCollidersToDestroy;
+
 }

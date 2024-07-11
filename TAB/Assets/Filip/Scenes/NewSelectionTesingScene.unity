@@ -5961,7 +5961,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   previewYOffset: 0.06
-  cellIndicator: {fileID: 0}
   previewMaterialsPrefab: {fileID: 2100000, guid: ee331f93920b1664a8e04b53a56b906b,
     type: 2}
 --- !u!1 &1123911294

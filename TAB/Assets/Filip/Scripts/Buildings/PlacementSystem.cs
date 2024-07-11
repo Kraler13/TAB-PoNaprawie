@@ -89,6 +89,13 @@ public class PlacementSystem : MonoBehaviour
             {
                 resorsSriptableObj.ForestCountTiles += resorsSriptableObj.ForestCountTilesToAdd;
                 resorsSriptableObj.ForestCountTilesToAdd = 0;
+                foreach (var item in resorsSriptableObj.boxCollidersToDestroy)
+                {
+                    if (item != null)
+                    {
+                        Destroy(item);
+                    }
+                }
             }
             if (newBuilding.GetComponentInChildren<ResorsGathering>().stoneBuilding)
             {

@@ -9,20 +9,19 @@ public class ResorsGathering : MonoBehaviour
     [SerializeField] private BoxCollider boxCollider;
     public bool stoneBuilding;
     public bool forestBuilding;
-    private int forestTiles;
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.tag == "Forest" && forestBuilding)
         {
             resorsSriptableObj.ForestCountTilesToAdd++;
-            Debug.Log(forestTiles);
+            resorsSriptableObj.boxCollidersToDestroy.Add(other.GetComponent<BoxCollider>());
         }
 
         if (other.tag == "Stone" && stoneBuilding)
         {
             resorsSriptableObj.StoneCountTilesToAdd++;
-            Debug.Log(forestTiles);
+            resorsSriptableObj.boxCollidersToDestroy.Add(other.GetComponent<BoxCollider>());
         }
     }
 
@@ -31,13 +30,13 @@ public class ResorsGathering : MonoBehaviour
         if (other.tag == "Forest" && forestBuilding)
         {
             resorsSriptableObj.ForestCountTilesToAdd--;
-            Debug.Log(forestTiles);
+            resorsSriptableObj.boxCollidersToDestroy.Remove(other.GetComponent<BoxCollider>());
         }
 
         if (other.tag == "Stone" && stoneBuilding)
         {
             resorsSriptableObj.StoneCountTilesToAdd--;
-            Debug.Log(forestTiles);
+            resorsSriptableObj.boxCollidersToDestroy.Remove(other.GetComponent<BoxCollider>());
         }
-    }
+    }  
 }
