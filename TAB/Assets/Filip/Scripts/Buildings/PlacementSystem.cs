@@ -24,6 +24,7 @@ public class PlacementSystem : MonoBehaviour
     {
         var extender = GameObject.FindGameObjectWithTag("Building");
         buildingsWithMoreRange.Add(extender.GetComponentInChildren<BuildInRange>());
+        Debug.Log(buildingsWithMoreRange[0]);
         StopPlacement();
     }
 
