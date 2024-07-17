@@ -8,7 +8,15 @@ TagManager:
   - LvlMenager
   - HUD
   - Selector
+  - Building
+  - RangeExtender
+  - PlacmentSystem
+  - Enemy
+  - Forest
+  - Ground
+  - Stone
   - Builder
+  - ForestBuildingRange
   layers:
   - Default
   - TransparentFX
@@ -21,9 +29,9 @@ TagManager:
   - Ground
   - Squad
   - Placement
-  - 
-  - 
-  - 
+  - Fog Stencil
+  - Building
+  - Enemy
   - 
   - 
   - 

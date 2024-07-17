@@ -14,3 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ResorsOne: 0
   ResorsTwo: 0
+  ForestCountTiles: 0
+  ForestCountTilesToAdd: 0
+  StoneCountTiles: 0
+  StoneCountTilesToAdd: 0
+  isNewGame: 1
