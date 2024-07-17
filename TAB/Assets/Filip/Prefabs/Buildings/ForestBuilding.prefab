@@ -94,7 +94,7 @@ GameObject:
   - component: {fileID: 6762562027406852615}
   m_Layer: 0
   m_Name: ForestBuilding3DModel
-  m_TagString: Untagged
+  m_TagString: ForestBuildingRange
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -191,6 +191,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   resorsSriptableObj: {fileID: 11400000, guid: 696341b08440c7249af2e4d7507d6ecf, type: 2}
   boxCollider: {fileID: 6091805546379117076}
+  rb: {fileID: 6762562027406852615}
   stoneBuilding: 0
   forestBuilding: 1
 --- !u!208 &9073322752655358888

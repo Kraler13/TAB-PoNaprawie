@@ -6,12 +6,24 @@ using UnityEngine;
 public class ResorsGathering : MonoBehaviour
 {
     [SerializeField] private ResorsSriptableObj resorsSriptableObj;
-    [SerializeField] private BoxCollider boxCollider;
+    [SerializeField] private PlacementSystem placementSystem;
+    public BoxCollider boxCollider;
+    public Rigidbody rb;
     public bool stoneBuilding;
     public bool forestBuilding;
 
+    private void Start()
+    {
+        placementSystem = GameObject.FindGameObjectWithTag("PlacmentSystem").GetComponent<PlacementSystem>();
+
+    }
     private void OnTriggerEnter(Collider other)
     {
+        if (other.tag == "ForestBuildingRange")
+        {
+            Debug.Log("dzia³a");
+            placementSystem.isColliding = true;
+        }
         if (other.tag == "Forest" && forestBuilding)
         {
             resorsSriptableObj.ForestCountTilesToAdd++;

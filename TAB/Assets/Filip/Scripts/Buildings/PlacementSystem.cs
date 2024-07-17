@@ -18,6 +18,8 @@ public class PlacementSystem : MonoBehaviour
     private List<GameObject> placedBuildings = new List<GameObject>();
     private Vector3Int lastDetectedPosition = Vector3Int.zero;
     public List<BuildInRange> buildingsWithMoreRange = new List<BuildInRange>();
+    public List<ResorsGathering> forestBuildings = new List<ResorsGathering>();
+    public List<ResorsGathering> stoneBuildings = new List<ResorsGathering>();
     private void Start()
     {
         var extender = GameObject.FindGameObjectWithTag("Building");
@@ -89,13 +91,7 @@ public class PlacementSystem : MonoBehaviour
             {
                 resorsSriptableObj.ForestCountTiles += resorsSriptableObj.ForestCountTilesToAdd;
                 resorsSriptableObj.ForestCountTilesToAdd = 0;
-                foreach (var item in resorsSriptableObj.boxCollidersToDestroy)
-                {
-                    if (item != null)
-                    {
-                        Destroy(item);
-                    }
-                }
+                forestBuildings.Add(newBuilding.GetComponentInChildren<ResorsGathering>());
             }
             if (newBuilding.GetComponentInChildren<ResorsGathering>().stoneBuilding)
             {
@@ -105,9 +101,8 @@ public class PlacementSystem : MonoBehaviour
         }
         newBuilding.transform.position = grid.CellToWorld(gridPosition);
         placedBuildings.Add(newBuilding);
-        Rigidbody rb = newBuilding.GetComponentInChildren<Rigidbody>();
         newBuilding.GetComponentInChildren<NavMeshObstacle>().enabled = true;
-        Destroy(rb);
+        Destroy(newBuilding.GetComponentInChildren<ResorsGathering>().rb);
         previevSystem.UpdatePosition(grid.CellToWorld(gridPosition), false);
     }
 
