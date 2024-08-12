@@ -17,7 +17,7 @@ public class InputForGridSystem : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
             OnClicked?.Invoke();
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Escape) || Input.GetMouseButtonDown(1))
             OnExit?.Invoke();        
     }
     public bool IsPointerOverUI() => EventSystem.current.IsPointerOverGameObject();

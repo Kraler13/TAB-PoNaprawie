@@ -13,9 +13,6 @@ public class InputMenager : MonoBehaviour
 {
     [SerializeField] private SquadSelection selectedSquads;
     [SerializeField] private List<Vector3> listOfPoints = new List<Vector3>();
-    [SerializeField] private List<GameObject> squadPatroling = new List<GameObject>();
-    [SerializeField] private List<Vector3> oldPositionInPatrol = new List<Vector3>();
-    [SerializeField] private List<Vector3> newPositionInPatrol = new List<Vector3>();
     [SerializeField] private ActionButtonsScriptableObj actionButtonsScriptableObj;
     [SerializeField] private LayerMask ground;
     [SerializeField] private LayerMask enemy;
@@ -23,15 +20,14 @@ public class InputMenager : MonoBehaviour
 
     public bool startPatrol = false;
     private float distanceBetweenSquads = 5;
-    private bool patrolCheker;
     private LayerMask combinedLayerMaskForEnemy;
     private LayerMask combinedLayerMaskForBuilding;
-    private BuildingActionButtons buildingActionButtons;
+    private MainBuildingActionButtons buildingActionButtons;
     private void Start()
     {
         combinedLayerMaskForEnemy = ground | enemy;
         combinedLayerMaskForBuilding = ground | building;
-        buildingActionButtons = GetComponent<BuildingActionButtons>();
+        buildingActionButtons = GetComponent<MainBuildingActionButtons>();
     }
     void Update()
     {
@@ -178,13 +174,6 @@ public class InputMenager : MonoBehaviour
         listOfPoints.Add(pointB - offset * 2);
         listOfPoints.Add(pointB - offset * 2 + distanceBetweenSquads * new Vector3(normalizedAB.x, 0, -normalizedAB.z));
         listOfPoints.Add(pointB - offset * 2 - distanceBetweenSquads * new Vector3(normalizedAB.x, 0, -normalizedAB.z));
-        if (startPatrol)
-        {
-            for (int i = 0; i < selectedSquads.SquadsSelected.Count; i++)
-            {
-                newPositionInPatrol.Add(listOfPoints[i]);
-            }
-        }
     }
 }
 

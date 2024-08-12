@@ -21,7 +21,6 @@ public class ResorsGathering : MonoBehaviour
     {
         if (other.tag == "ForestBuildingRange")
         {
-            Debug.Log("dzia³a");
             placementSystem.isColliding = true;
         }
         if (other.tag == "Forest" && forestBuilding)
