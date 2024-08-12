@@ -14,6 +14,7 @@ public class PlacementSystem : MonoBehaviour
     [SerializeField] private ResorsSriptableObj resorsSriptableObj;
     [SerializeField] private GameObject gridVisual;
     [SerializeField] private PrevievSystem previevSystem;
+    [SerializeField] private InputMenager input;
     private int selectedObjIndex = -1;
     private List<GameObject> placedBuildings = new List<GameObject>();
     private Vector3Int lastDetectedPosition = Vector3Int.zero;
@@ -28,7 +29,7 @@ public class PlacementSystem : MonoBehaviour
         StopPlacement();
     }
 
-    void Update()
+    void LateUpdate()
     {
         if (selectedObjIndex < 0)
             return;
@@ -60,7 +61,8 @@ public class PlacementSystem : MonoBehaviour
     }
 
     private void StopPlacement()
-    {
+    { 
+        WhatToEnable();
         selectedObjIndex = -1;
         gridVisual.SetActive(false);
         previevSystem.StopShowingPreview();
@@ -99,11 +101,11 @@ public class PlacementSystem : MonoBehaviour
                 resorsSriptableObj.StoneCountTiles += resorsSriptableObj.StoneCountTilesToAdd;
                 resorsSriptableObj.StoneCountTilesToAdd = 0;
             }
+            Destroy(newBuilding.GetComponentInChildren<ResorsGathering>().rb);
         }
         newBuilding.transform.position = grid.CellToWorld(gridPosition);
         placedBuildings.Add(newBuilding);
         newBuilding.GetComponentInChildren<NavMeshObstacle>().enabled = true;
-        Destroy(newBuilding.GetComponentInChildren<ResorsGathering>().rb);
         previevSystem.UpdatePosition(grid.CellToWorld(gridPosition), false);
     }
 
@@ -124,5 +126,11 @@ public class PlacementSystem : MonoBehaviour
         {
             return false;
         }
+    }
+
+    private void WhatToEnable()
+    {
+        Debug.Log("1");
+        input.enabled = false;
     }
 }

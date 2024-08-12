@@ -99,6 +99,7 @@ public class SquadLogic : MonoBehaviour
     private IEnumerator Attack()
     {
         whiteWithAttack = false;
+        Debug.Log("dzia³a");
         if (isAttacking && enemy != null)
         {
             navMeshAgent.speed = 0;

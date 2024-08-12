@@ -4636,9 +4636,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   selectedSquads: {fileID: 2053314207}
   listOfPoints: []
-  squadPatroling: []
-  oldPositionInPatrol: []
-  newPositionInPatrol: []
   actionButtonsScriptableObj: {fileID: 11400000, guid: efc08a981dfa5c340b1c77d5cd18fa05,
     type: 2}
   ground:
@@ -5960,6 +5957,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 820aee6476d6b1047afa286a97bca514, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  input: {fileID: 851864367}
   previewYOffset: 0.06
   previewMaterialsPrefab: {fileID: 2100000, guid: ee331f93920b1664a8e04b53a56b906b,
     type: 2}
@@ -6944,7 +6942,10 @@ MonoBehaviour:
   resorsSriptableObj: {fileID: 11400000, guid: 696341b08440c7249af2e4d7507d6ecf, type: 2}
   gridVisual: {fileID: 235596068}
   previevSystem: {fileID: 1118758465}
+  input: {fileID: 851864367}
   buildingsWithMoreRange: []
+  forestBuildings: []
+  stoneBuildings: []
 --- !u!1 &1286714701
 GameObject:
   m_ObjectHideFlags: 0
@@ -7633,7 +7634,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   distanceThreshold: 1
   RotationSpeed: 720
-  damage: 100
+  damage: 1
   hp: 100
   Unite: {fileID: 3368740284047959390, guid: 4b889b7234cd6284fbebbba50281ff05, type: 3}
   ListOfSpowningPoints:
