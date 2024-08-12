@@ -16,7 +16,7 @@ MonoBehaviour:
   - <Name>k__BackingField: B1
     <ID>k__BackingField: 1
     <Size>k__BackingField: {x: 2, y: 2}
-    <Prefab>k__BackingField: {fileID: 2402490883217081069, guid: 64bfa2527fe6b0a4a98c458b03219d9c,
+    <Prefab>k__BackingField: {fileID: 7533425440068381570, guid: efaa14d25bd524804b92223075abd35f,
       type: 3}
     <BuildingWithMoreRang>k__BackingField: 0
     <ResorseBuilding>k__BackingField: 0
