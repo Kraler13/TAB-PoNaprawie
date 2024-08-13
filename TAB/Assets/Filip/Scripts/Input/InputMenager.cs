@@ -17,6 +17,7 @@ public class InputMenager : MonoBehaviour
     [SerializeField] private LayerMask ground;
     [SerializeField] private LayerMask enemy;
     [SerializeField] private LayerMask building;
+    [SerializeField] private BarracksActionButtons barracksActionButtons;
 
     public bool startPatrol = false;
     private float distanceBetweenSquads = 5;
@@ -112,6 +113,14 @@ public class InputMenager : MonoBehaviour
                 {
                     selectedSquads.DeselectAll();
                     buildingActionButtons.OnBuildingCliced(hit);
+                }
+                Debug.Log(hit.collider.gameObject.name);
+
+                if (hit.collider.gameObject.name == "Barracks3DObj")
+                {
+                    Debug.Log("dzia³a");
+                    selectedSquads.DeselectAll();
+                    barracksActionButtons.OnBuildingCliced(hit);
                 }
             }
         }

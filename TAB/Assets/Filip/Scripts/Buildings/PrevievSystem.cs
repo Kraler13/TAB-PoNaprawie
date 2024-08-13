@@ -64,7 +64,7 @@ public class PrevievSystem : MonoBehaviour
 
     private void WhatToDisable()
     {
-        Debug.Log("2");
+        //Debug.Log("2");
 
         input.enabled = false;
     }
