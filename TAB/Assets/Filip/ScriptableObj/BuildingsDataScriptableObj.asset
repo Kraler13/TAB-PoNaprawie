@@ -20,10 +20,10 @@ MonoBehaviour:
       type: 3}
     <BuildingWithMoreRang>k__BackingField: 0
     <ResorseBuilding>k__BackingField: 0
-  - <Name>k__BackingField: B2
+  - <Name>k__BackingField: Barracks
     <ID>k__BackingField: 2
     <Size>k__BackingField: {x: 4, y: 2}
-    <Prefab>k__BackingField: {fileID: 4350886507202913888, guid: 51b804daf00f2ad4cb98fdf95f0e0965,
+    <Prefab>k__BackingField: {fileID: 1304217426929261322, guid: 529e21d52c2f09845afbe27d38dcc49b,
       type: 3}
     <BuildingWithMoreRang>k__BackingField: 0
     <ResorseBuilding>k__BackingField: 0

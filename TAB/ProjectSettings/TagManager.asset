@@ -17,6 +17,7 @@ TagManager:
   - Stone
   - Builder
   - ForestBuildingRange
+  - Barracks
   layers:
   - Default
   - TransparentFX
