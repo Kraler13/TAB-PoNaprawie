@@ -1383,7 +1383,6 @@ MonoBehaviour:
   enemy: {fileID: 0}
   ListOfEnemys: []
   isPatroling: 0
-  GoBackInPatrol: 0
   isMoving: 0
   PatrolTargetPosition: {x: 0, y: 0, z: 0}
   PatrolStartingPosition: {x: 0, y: 0, z: 0}
@@ -1788,6 +1787,7 @@ GameObject:
   - component: {fileID: 413215002}
   - component: {fileID: 413215001}
   - component: {fileID: 413215000}
+  - component: {fileID: 413215007}
   m_Layer: 0
   m_Name: Stone
   m_TagString: Stone
@@ -1912,6 +1912,22 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!208 &413215007
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 413214999}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.5, y: 0.5, z: 0.5}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!1 &442513520
 GameObject:
   m_ObjectHideFlags: 0
@@ -4590,6 +4606,7 @@ GameObject:
   - component: {fileID: 931333199}
   - component: {fileID: 931333198}
   - component: {fileID: 931333200}
+  - component: {fileID: 931333201}
   m_Layer: 0
   m_Name: Forest
   m_TagString: Forest
@@ -4714,6 +4731,22 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.45, y: 1, z: 0.45}
   m_Center: {x: -0.25, y: 0, z: 0.25}
+--- !u!208 &931333201
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 931333193}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.5, y: 0.5, z: 0.5}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!1 &940376244
 GameObject:
   m_ObjectHideFlags: 0
@@ -5231,7 +5264,7 @@ GameObject:
   - component: {fileID: 1004115613}
   m_Layer: 9
   m_Name: AttackCollider
-  m_TagString: Untagged
+  m_TagString: AttackCollider
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5602,6 +5635,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 100
+  squadsAttacking: []
 --- !u!1 &1163056905
 GameObject:
   m_ObjectHideFlags: 0
@@ -6162,6 +6196,75 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &1253209924
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 2402490883217081069, guid: 64bfa2527fe6b0a4a98c458b03219d9c,
+        type: 3}
+      propertyPath: m_Name
+      value: Building1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3173772431296564347, guid: 64bfa2527fe6b0a4a98c458b03219d9c,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 14
+      objectReference: {fileID: 0}
+    - target: {fileID: 3173772431296564347, guid: 64bfa2527fe6b0a4a98c458b03219d9c,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3173772431296564347, guid: 64bfa2527fe6b0a4a98c458b03219d9c,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3173772431296564347, guid: 64bfa2527fe6b0a4a98c458b03219d9c,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3173772431296564347, guid: 64bfa2527fe6b0a4a98c458b03219d9c,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3173772431296564347, guid: 64bfa2527fe6b0a4a98c458b03219d9c,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3173772431296564347, guid: 64bfa2527fe6b0a4a98c458b03219d9c,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3173772431296564347, guid: 64bfa2527fe6b0a4a98c458b03219d9c,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3173772431296564347, guid: 64bfa2527fe6b0a4a98c458b03219d9c,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3173772431296564347, guid: 64bfa2527fe6b0a4a98c458b03219d9c,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3173772431296564347, guid: 64bfa2527fe6b0a4a98c458b03219d9c,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 64bfa2527fe6b0a4a98c458b03219d9c, type: 3}
 --- !u!1 &1255974828
 GameObject:
   m_ObjectHideFlags: 0
@@ -7072,7 +7175,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   distanceThreshold: 1
   RotationSpeed: 720
-  damage: 1
+  damage: 70
   hp: 100
   Unite: {fileID: 3368740284047959390, guid: 4b889b7234cd6284fbebbba50281ff05, type: 3}
   ListOfSpowningPoints:
@@ -7095,7 +7198,6 @@ MonoBehaviour:
   enemy: {fileID: 0}
   ListOfEnemys: []
   isPatroling: 0
-  GoBackInPatrol: 0
   isMoving: 0
   PatrolTargetPosition: {x: 0, y: 0, z: 0}
   PatrolStartingPosition: {x: 0, y: 0, z: 0}
@@ -7356,7 +7458,6 @@ MonoBehaviour:
   enemy: {fileID: 0}
   ListOfEnemys: []
   isPatroling: 0
-  GoBackInPatrol: 0
   isMoving: 0
   PatrolTargetPosition: {x: 0, y: 0, z: 0}
   PatrolStartingPosition: {x: 0, y: 0, z: 0}
