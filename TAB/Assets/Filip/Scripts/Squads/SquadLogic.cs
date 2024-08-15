@@ -27,7 +27,6 @@ public class SquadLogic : MonoBehaviour
     public GameObject enemy;
     public List<GameObject> ListOfEnemys;
     public bool isPatroling = false;
-    public bool GoBackInPatrol = false;
     public bool isMoving = false;
     public Vector3 PatrolTargetPosition;
     public Vector3 PatrolStartingPosition;
@@ -48,16 +47,14 @@ public class SquadLogic : MonoBehaviour
     }
     private void Update()
     {
-        if (isPatroling)
+        if (isPatroling && !stopPatroling)
         {
+            Debug.Log("patrol");
             float distanceToTarget = Vector3.Distance(transform.position, PatrolTargetPosition);
             if (distanceToTarget < distanceThreshold)
             {
                 Patrol();
-                //GoBackInPatrol = true;
             }
-            //else
-                //GoBackInPatrol = false;
         }
         if (ListOfEnemys.Count != 0 && enemy == null)
         {
@@ -67,7 +64,7 @@ public class SquadLogic : MonoBehaviour
         {
             MoveToDestination(enemy.transform.position);
         }
-        else if (isAttacking && whiteWithAttack && !isMoving)
+        else if (isAttacking && whiteWithAttack && !isMoving && ListOfEnemys.Count != 0)
         {
             StartCoroutine(Attack());
         }
@@ -82,11 +79,13 @@ public class SquadLogic : MonoBehaviour
                 isMoving = false;
             }
         }
-        if (isPatroling && ListOfEnemys.Count != 0 && stopPatroling)
+        if (isPatroling && ListOfEnemys.Count == 0 && stopPatroling)
         {
             MoveToDestination(PatrolTargetPosition);
             stopPatroling = false;
         }
+        Debug.Log(stopPatroling);
+        Debug.Log(ListOfEnemys.Count);
     }
 
     public void MoveToDestination(Vector3 destination)
@@ -98,13 +97,17 @@ public class SquadLogic : MonoBehaviour
 
     private IEnumerator Attack()
     {
+        if (ListOfEnemys.Count == 0 && isPatroling)
+        {
+            stopPatroling = true;
+        }
         whiteWithAttack = false;
-        Debug.Log("dzia³a");
+        Debug.Log("atak");
         if (isAttacking && enemy != null)
         {
             navMeshAgent.speed = 0;
             yield return new WaitForSeconds(1);
-            enemy.GetComponent<Health>().TakeDamage(damage * Unites.Count);
+            enemy.GetComponent<EnemyHealth>().TakeDamage(damage * Unites.Count);
             SeeEnemy = true;
         }
         else

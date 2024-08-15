@@ -18,6 +18,7 @@ TagManager:
   - Builder
   - ForestBuildingRange
   - Barracks
+  - AttackCollider
   layers:
   - Default
   - TransparentFX

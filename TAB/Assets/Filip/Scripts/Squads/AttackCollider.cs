@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class AttackCollider : MonoBehaviour
 {
-    [SerializeField] private SquadLogic SquadLogic;
+    public SquadLogic SquadLogic;
     private void OnTriggerEnter(Collider other)
     {
         if (other.tag == "Enemy")

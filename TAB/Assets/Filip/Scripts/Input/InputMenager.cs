@@ -114,7 +114,6 @@ public class InputMenager : MonoBehaviour
                     selectedSquads.DeselectAll();
                     buildingActionButtons.OnBuildingCliced(hit);
                 }
-                Debug.Log(hit.collider.gameObject.name);
 
                 if (hit.collider.gameObject.name == "Barracks3DObj")
                 {
