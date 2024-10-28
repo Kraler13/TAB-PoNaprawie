@@ -6,10 +6,10 @@ using UnityEngine.Windows;
 
 public class PrevievSystem : MonoBehaviour
 {
-    [SerializeField] private InputMenager input;
+    [SerializeField] private GameObject selection;
     [SerializeField] private float previewYOffset = 0.06f;
-    private GameObject previewObject;
     [SerializeField] private Material previewMaterialsPrefab;
+    private GameObject previewObject;
     private Material previewMaterialsInstance;
     private void Start()
     {
@@ -18,7 +18,6 @@ public class PrevievSystem : MonoBehaviour
 
     public void StartShowingPlacementPreview(GameObject prefab, Vector2Int size)
     {
-        WhatToDisable();
         previewObject = Instantiate(prefab);
         PreperePreview(previewObject);
     }
@@ -60,12 +59,5 @@ public class PrevievSystem : MonoBehaviour
     private void MovePreview(Vector3 position)
     {
         previewObject.transform.position = new Vector3(position.x, position.y + previewYOffset, position.z);
-    }
-
-    private void WhatToDisable()
-    {
-        //Debug.Log("2");
-
-        input.enabled = false;
     }
 }

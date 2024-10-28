@@ -9,8 +9,6 @@ public class SquadHealth : MonoBehaviour
     public float maxSquadHealth;
     private SquadLogic squadLogic;
     private int currentUniteCount;
-    private bool squadIsAttacked;
-    private bool k = false;
     void Start()
     {
         squadLogic = GetComponent<SquadLogic>();
@@ -26,7 +24,7 @@ public class SquadHealth : MonoBehaviour
             maxSquadHealth = currentUniteCount * maxUniteHP;         
         }
 
-        if (Input.GetKeyDown(KeyCode.Space) && !k)
+        if (Input.GetKeyDown(KeyCode.Space))
         {
             TakeDemage(101);
         }
@@ -34,7 +32,6 @@ public class SquadHealth : MonoBehaviour
 
     public void TakeDemage(float damage)
     {
-        k = true;       
         int r = Random.Range(0, squadLogic.Unites.Count);
         squadLogic.Unites[r].GetComponent<UniteHealth>().TakeDamage(damage);
         CurrentSquadHP = 0;
@@ -47,17 +44,8 @@ public class SquadHealth : MonoBehaviour
 
         if (CurrentSquadHP <= 10)
         {
-            Debug.Log("dzi¹³a");
             Destroy(gameObject);
             return;
         }
-        StartCoroutine(ForTest());
-    }
-
-    private IEnumerator ForTest()
-    {
-        yield return new WaitForSeconds(2f);
-        k = false;
-        Debug.Log("JUSZ");
     }
 }

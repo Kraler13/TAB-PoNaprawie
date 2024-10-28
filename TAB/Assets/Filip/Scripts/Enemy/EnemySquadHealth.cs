@@ -2,10 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyHealth : MonoBehaviour
+public class EnemySquadHealth : MonoBehaviour
 {
     [SerializeField] private float health = 100f;
     [SerializeField] private List<SquadLogic> squadsAttacking;
+    public List<GameObject> Unites;
+
+    public float maxUniteHP;
+    public float CurrentSquadHP;
+    public float maxSquadHealth;
+
 
     private void OnTriggerEnter(Collider other)
     {
@@ -24,6 +30,9 @@ public class EnemyHealth : MonoBehaviour
 
     public void TakeDamage(float damage)
     {
+        int r = Random.Range(0, Unites.Count);
+        Unites[r].GetComponent<UniteHealth>().TakeDamage(damage);
+
         health -= damage;
         if (health < 0)
         {

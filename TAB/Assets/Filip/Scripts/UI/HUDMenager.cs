@@ -9,6 +9,7 @@ public class HUDMenager : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
     [SerializeField] private GameObject selection;
     [SerializeField] private SquadDrag squadDrag;
     [SerializeField] private InputMenager inputMenager;
+    [SerializeField] private PlacementSystem placementSystem;
     public GameObject OneRowButtons;
     public GameObject TwoRowButtons;
     private GameObject k;
@@ -28,16 +29,18 @@ public class HUDMenager : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
         {
             inputMenager.enabled = true;
         }
-        if (k != null && !squadDrag.isSelectingDrag)
+        if ((k != null && !squadDrag.isSelectingDrag) || placementSystem.isBuilding)
         {
             selection.SetActive(false);
             isOverHUD = true;
         }
-        else if (k == null && isOverHUD)
+        else if ((k == null && isOverHUD) || !placementSystem.isBuilding)
         {
             selection.SetActive(true);
             isOverHUD = false;
         }
+
+        Debug.Log(placementSystem.isBuilding);
     }
 
     public void OnPointerEnter(PointerEventData eventData)

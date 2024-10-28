@@ -14,13 +14,14 @@ public class PlacementSystem : MonoBehaviour
     [SerializeField] private ResorsSriptableObj resorsSriptableObj;
     [SerializeField] private GameObject gridVisual;
     [SerializeField] private PrevievSystem previevSystem;
-    [SerializeField] private InputMenager input;
+    [SerializeField] private GameObject selection;
     private int selectedObjIndex = -1;
     private List<GameObject> placedBuildings = new List<GameObject>();
     private Vector3Int lastDetectedPosition = Vector3Int.zero;
     public List<BuildInRange> buildingsWithMoreRange = new List<BuildInRange>();
     public List<ResorsGathering> forestBuildings = new List<ResorsGathering>();
     public List<ResorsGathering> stoneBuildings = new List<ResorsGathering>();
+    public bool isBuilding = false;
     private void Start()
     {
         var extender = GameObject.FindGameObjectWithTag("Building");
@@ -45,6 +46,7 @@ public class PlacementSystem : MonoBehaviour
     public void StartPlacement(int ID)
     {
         StopPlacement();
+        WhatToDisable();
         selectedObjIndex = buildingsDataScriptableObj.buildingsDatas.FindIndex(data => data.ID == ID);
         if (selectedObjIndex < 0)
         {
@@ -130,6 +132,14 @@ public class PlacementSystem : MonoBehaviour
     private void WhatToEnable()
     {
         Debug.Log("1");
-        input.enabled = false;
+        selection.SetActive(true);
+        isBuilding = false;
+    }
+
+    private void WhatToDisable()
+    {
+        Debug.Log("2");
+        selection.SetActive(false);
+        isBuilding = true;
     }
 }

@@ -84,8 +84,6 @@ public class SquadLogic : MonoBehaviour
             MoveToDestination(PatrolTargetPosition);
             stopPatroling = false;
         }
-        Debug.Log(stopPatroling);
-        Debug.Log(ListOfEnemys.Count);
     }
 
     public void MoveToDestination(Vector3 destination)
@@ -107,7 +105,7 @@ public class SquadLogic : MonoBehaviour
         {
             navMeshAgent.speed = 0;
             yield return new WaitForSeconds(1);
-            enemy.GetComponent<EnemyHealth>().TakeDamage(damage * Unites.Count);
+            enemy.GetComponent<EnemySquadHealth>().TakeDamage(damage * Unites.Count);
             SeeEnemy = true;
         }
         else
