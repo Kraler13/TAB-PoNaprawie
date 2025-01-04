@@ -9,19 +9,14 @@ public class SquadSeeEnemyCollider : MonoBehaviour
     {
         if (other.tag == "Enemy")
         {
-            SquadLogic.SeeEnemy = true;
-            SquadLogic.ListOfEnemys.Add(other.gameObject);
+            SquadLogic.AddEnemy(other.gameObject);
         }
     }
     private void OnTriggerExit(Collider other)
     {
         if (other.tag == "Enemy")
         {
-            if (SquadLogic.enemy.name == other.name)
-            {
-                SquadLogic.enemy = null;
-            }
-            SquadLogic.ListOfEnemys.Remove(other.gameObject);
+            SquadLogic.RemoveEnemy(other.gameObject);
         }
     }
 }

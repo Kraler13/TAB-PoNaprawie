@@ -5937,7 +5937,7 @@ GameObject:
   - component: {fileID: 888515782}
   m_Layer: 9
   m_Name: EnemySquad
-  m_TagString: Squad
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5996,9 +5996,6 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  maxUniteHP: 50
-  CurrentSquadHP: 0
-  maxSquadHealth: 0
 --- !u!195 &888515785
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -7557,9 +7554,6 @@ MonoBehaviour:
   health: 100
   squadsAttacking: []
   Unites: []
-  maxUniteHP: 0
-  CurrentSquadHP: 0
-  maxSquadHealth: 0
 --- !u!195 &1161677906
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -9317,7 +9311,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   distanceThreshold: 1
   RotationSpeed: 720
-  damage: 70
+  damage: 1000
   hp: 100
   Unite: {fileID: 3368740284047959390, guid: 4b889b7234cd6284fbebbba50281ff05, type: 3}
   ListOfSpowningPoints:
@@ -9416,7 +9410,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1389339825}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -27.859999, y: 1.02, z: 8.71}
+  m_LocalPosition: {x: -119.8, y: 1.02, z: 140.6}
   m_LocalScale: {x: 5, y: 1, z: 5}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -13553,7 +13547,7 @@ PrefabInstance:
     - target: {fileID: 3900860365355478090, guid: 5a2ca18d0eb0c1344a5c03579656df8e,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -17.2
+      value: -117.1
       objectReference: {fileID: 0}
     - target: {fileID: 3900860365355478090, guid: 5a2ca18d0eb0c1344a5c03579656df8e,
         type: 3}
@@ -13563,7 +13557,7 @@ PrefabInstance:
     - target: {fileID: 3900860365355478090, guid: 5a2ca18d0eb0c1344a5c03579656df8e,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 16.5
+      value: -55.8
       objectReference: {fileID: 0}
     - target: {fileID: 3900860365355478090, guid: 5a2ca18d0eb0c1344a5c03579656df8e,
         type: 3}
@@ -13609,6 +13603,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3900860365355478198, guid: 5a2ca18d0eb0c1344a5c03579656df8e,
+        type: 3}
+      propertyPath: damage
+      value: 1000
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5a2ca18d0eb0c1344a5c03579656df8e, type: 3}

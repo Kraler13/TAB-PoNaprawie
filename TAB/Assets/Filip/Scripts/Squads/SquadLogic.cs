@@ -115,7 +115,40 @@ public class SquadLogic : MonoBehaviour
         whiteWithAttack = true;
         stopPatroling = true;
     }
+    public void AddEnemy(GameObject enemy)
+    {
+        if (!ListOfEnemys.Contains(enemy))
+        {
+            ListOfEnemys.Add(enemy);
 
+            EnemySquadHealth enemyHealth = enemy.GetComponent<EnemySquadHealth>();
+            if (enemyHealth != null)
+            {
+                enemyHealth.OnEnemyDestroyed += HandleEnemyDestroyed;
+            }
+        }
+    }
+    public void RemoveEnemy(GameObject enemy)
+    {
+        if (ListOfEnemys.Contains(enemy))
+        {
+            ListOfEnemys.Remove(enemy);
+            EnemySquadHealth enemyHealth = enemy.GetComponent<EnemySquadHealth>();
+            if (enemyHealth != null)
+            {
+                enemyHealth.OnEnemyDestroyed -= HandleEnemyDestroyed;
+            }
+
+            if (this.enemy == enemy)
+            {
+                this.enemy = null;
+                if (ListOfEnemys.Count > 0)
+                {
+                    this.enemy = ListOfEnemys[0];
+                }
+            }
+        }
+    }
     public void StartPatrol(Vector3 destination)
     {
         PatrolTargetPosition = destination;
@@ -129,5 +162,10 @@ public class SquadLogic : MonoBehaviour
         PatrolStartingPosition = PatrolTargetPosition;
         PatrolTargetPosition = justForPatrolSwitch;
         MoveToDestination(PatrolTargetPosition);
+    }
+
+    private void HandleEnemyDestroyed(GameObject enemy)
+    {
+        RemoveEnemy(enemy);
     }
 }
