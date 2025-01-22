@@ -6,8 +6,10 @@ using UnityEngine;
 
 public class ResorsMenager : MonoBehaviour
 {
-    [SerializeField] private TextMeshProUGUI resorsOneTxt;
-    [SerializeField] private TextMeshProUGUI resorsTwoTxt;
+    [SerializeField] private TextMeshProUGUI Wood;
+    [SerializeField] private TextMeshProUGUI Stone;
+    [SerializeField] private TextMeshProUGUI Food;
+    [SerializeField] private TextMeshProUGUI WorkForce;
     [SerializeField] private ResorsSriptableObj resorsSriptableObj;
     private bool k = true;
 
@@ -19,6 +21,9 @@ public class ResorsMenager : MonoBehaviour
             resorsSriptableObj.ForestCountTiles = 0;
             resorsSriptableObj.StoneCountTiles = 0;
             resorsSriptableObj.StoneCountTilesToAdd = 0;
+            resorsSriptableObj.FoodCountTiles = 0;
+            resorsSriptableObj.FoodCountTilesToAdd = 0;
+            resorsSriptableObj.WorkForce = 15;
         }
     }
     private void FixedUpdate()
@@ -30,10 +35,13 @@ public class ResorsMenager : MonoBehaviour
     IEnumerator UpdateResorsOnHUD()
     {
         k = false;
-        resorsSriptableObj.ResorsOne += resorsSriptableObj.ForestCountTiles;
-        resorsSriptableObj.ResorsTwo += resorsSriptableObj.StoneCountTiles;
-        resorsOneTxt.text = resorsSriptableObj.ResorsOne.ToString();
-        resorsTwoTxt.text = resorsSriptableObj.ResorsTwo.ToString();
+        resorsSriptableObj.Wood += resorsSriptableObj.ForestCountTiles;
+        resorsSriptableObj.Stone += resorsSriptableObj.StoneCountTiles;
+        resorsSriptableObj.Food += resorsSriptableObj.FoodCountTiles;
+        Wood.text = resorsSriptableObj.Wood.ToString();
+        Stone.text = resorsSriptableObj.Stone.ToString();
+        Food.text = resorsSriptableObj.Food.ToString();
+        WorkForce.text = resorsSriptableObj.WorkForce.ToString();
         yield return new WaitForSeconds(1);
         k = true;
     }

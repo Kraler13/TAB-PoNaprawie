@@ -39,8 +39,6 @@ public class HUDMenager : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
             selection.SetActive(true);
             isOverHUD = false;
         }
-
-        Debug.Log(placementSystem.isBuilding);
     }
 
     public void OnPointerEnter(PointerEventData eventData)

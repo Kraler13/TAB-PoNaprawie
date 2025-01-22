@@ -19,8 +19,8 @@ public class PlacementSystem : MonoBehaviour
     private List<GameObject> placedBuildings = new List<GameObject>();
     private Vector3Int lastDetectedPosition = Vector3Int.zero;
     public List<BuildInRange> buildingsWithMoreRange = new List<BuildInRange>();
-    public List<ResorsGathering> forestBuildings = new List<ResorsGathering>();
-    public List<ResorsGathering> stoneBuildings = new List<ResorsGathering>();
+    public List<Transform> forestBuildings = new List<Transform>();
+    public List<Transform> stoneBuildings = new List<Transform>();
     public bool isBuilding = false;
     private void Start()
     {
@@ -91,13 +91,14 @@ public class PlacementSystem : MonoBehaviour
         }
         if (buildingsDataScriptableObj.buildingsDatas[selectedObjIndex].ResorseBuilding)
         {
-            if (newBuilding.GetComponentInChildren<ResorsGathering>().forestBuilding)
+            if (newBuilding.GetComponentInChildren<ResorsGathering>().ForestBuilding)
             {
                 resorsSriptableObj.ForestCountTiles += resorsSriptableObj.ForestCountTilesToAdd;
                 resorsSriptableObj.ForestCountTilesToAdd = 0;
-                forestBuildings.Add(newBuilding.GetComponentInChildren<ResorsGathering>());
+                forestBuildings.Add(newBuilding.transform);
+                //DestroyBoxColliders();
             }
-            if (newBuilding.GetComponentInChildren<ResorsGathering>().stoneBuilding)
+            if (newBuilding.GetComponentInChildren<ResorsGathering>().StoneBuilding)
             {
                 resorsSriptableObj.StoneCountTiles += resorsSriptableObj.StoneCountTilesToAdd;
                 resorsSriptableObj.StoneCountTilesToAdd = 0;
@@ -131,15 +132,30 @@ public class PlacementSystem : MonoBehaviour
 
     private void WhatToEnable()
     {
-        Debug.Log("1");
         selection.SetActive(true);
         isBuilding = false;
     }
 
     private void WhatToDisable()
     {
-        Debug.Log("2");
         selection.SetActive(false);
         isBuilding = true;
     }
+
+    private void DistanceBetwenResorses()
+    {
+
+    }
+    //private void DestroyBoxColliders()
+    //{
+    //    Debug.Log("resorsSriptableObj.boxCollidersToDestroy " + resorsSriptableObj.boxCollidersToDestroy.Count);
+    //    foreach (var collider in resorsSriptableObj.boxCollidersToDestroy)
+    //    {
+    //        if (collider != null)
+    //        {
+    //            Destroy(collider);
+    //        }
+    //    }
+    //    resorsSriptableObj.boxCollidersToDestroy.Clear();
+    //}
 }

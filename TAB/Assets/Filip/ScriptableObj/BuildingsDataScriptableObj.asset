@@ -13,13 +13,13 @@ MonoBehaviour:
   m_Name: BuildingsDataScriptableObj
   m_EditorClassIdentifier: 
   buildingsDatas:
-  - <Name>k__BackingField: B1
+  - <Name>k__BackingField: FoodBuilding
     <ID>k__BackingField: 1
     <Size>k__BackingField: {x: 2, y: 2}
     <Prefab>k__BackingField: {fileID: 2402490883217081069, guid: 64bfa2527fe6b0a4a98c458b03219d9c,
       type: 3}
     <BuildingWithMoreRang>k__BackingField: 0
-    <ResorseBuilding>k__BackingField: 0
+    <ResorseBuilding>k__BackingField: 1
   - <Name>k__BackingField: Barracks
     <ID>k__BackingField: 2
     <Size>k__BackingField: {x: 4, y: 2}
@@ -27,7 +27,7 @@ MonoBehaviour:
       type: 3}
     <BuildingWithMoreRang>k__BackingField: 0
     <ResorseBuilding>k__BackingField: 0
-  - <Name>k__BackingField: B3
+  - <Name>k__BackingField: RangeExtender
     <ID>k__BackingField: 3
     <Size>k__BackingField: {x: 3, y: 3}
     <Prefab>k__BackingField: {fileID: 5904265975729718021, guid: 2fc845a73f275404c918cbd468151632,

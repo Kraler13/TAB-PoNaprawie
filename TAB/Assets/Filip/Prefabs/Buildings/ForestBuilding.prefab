@@ -190,10 +190,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   resorsSriptableObj: {fileID: 11400000, guid: 696341b08440c7249af2e4d7507d6ecf, type: 2}
+  placementSystem: {fileID: 0}
   boxCollider: {fileID: 6091805546379117076}
   rb: {fileID: 6762562027406852615}
-  stoneBuilding: 0
-  forestBuilding: 1
+  StoneBuilding: 0
+  ForestBuilding: 1
+  FoodBuilding: 0
 --- !u!208 &9073322752655358888
 NavMeshObstacle:
   m_ObjectHideFlags: 0

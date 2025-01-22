@@ -19,6 +19,7 @@ TagManager:
   - ForestBuildingRange
   - Barracks
   - AttackCollider
+  - Food
   layers:
   - Default
   - TransparentFX

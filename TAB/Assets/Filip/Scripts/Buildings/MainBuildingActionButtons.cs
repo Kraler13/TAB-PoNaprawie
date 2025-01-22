@@ -8,9 +8,6 @@ public class MainBuildingActionButtons : MonoBehaviour
     [SerializeField] private ActionButtonsScriptableObj ActionButtonsScriptableObj;
     [SerializeField] private PlacementSystem placementSystem;
     [SerializeField] private string MainBuilding;
-    [SerializeField] private string Forester;
-    [SerializeField] private string RangeExtender;
-    [SerializeField] private string B2;
 
     public void OnBuildingCliced(RaycastHit hit)
     {
@@ -29,8 +26,8 @@ public class MainBuildingActionButtons : MonoBehaviour
     private void Build()
     {
         ClearButtons();
-        ActionButtonsScriptableObj.buttons[0].GetComponentInChildren<TextMeshProUGUI>().text = "House";
-        ActionButtonsScriptableObj.buttons[0].onClick.AddListener(BuildHouse);
+        ActionButtonsScriptableObj.buttons[0].GetComponentInChildren<TextMeshProUGUI>().text = "FoodBuilding";
+        ActionButtonsScriptableObj.buttons[0].onClick.AddListener(BuildFood);
         ActionButtonsScriptableObj.buttons[1].GetComponentInChildren<TextMeshProUGUI>().text = "Forester";
         ActionButtonsScriptableObj.buttons[1].onClick.AddListener(BuildForester);
         ActionButtonsScriptableObj.buttons[2].GetComponentInChildren<TextMeshProUGUI>().text = "Stoner";
@@ -40,7 +37,7 @@ public class MainBuildingActionButtons : MonoBehaviour
         ActionButtonsScriptableObj.buttons[4].GetComponentInChildren<TextMeshProUGUI>().text = "Barracks";
         ActionButtonsScriptableObj.buttons[4].onClick.AddListener(BuildBarracks);
     }
-    private void BuildHouse()
+    private void BuildFood()
     {
         placementSystem.StartPlacement(1);
     }

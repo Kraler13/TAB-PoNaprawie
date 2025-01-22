@@ -44,7 +44,7 @@ public class OrdinaryPeasantsSquad : MonoBehaviour
     {
         if (maxUnites > uniteCount)
         {
-            squadLogic.resorsSriptableObj.ResorsOne -= 10f;
+            squadLogic.resorsSriptableObj.Stone -= 10f;
             var createdUnite = Instantiate(squadLogic.Unite, squadLogic.ListOfSpowningPointsToChange[0].transform);
             createdUnite.GetComponent<UniteLogic>().pointToFollow = squadLogic.ListOfSpowningPointsToChange[0];
             squadLogic.ListOfSpowningPointsToChange.RemoveAt(0);

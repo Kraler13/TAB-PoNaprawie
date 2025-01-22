@@ -9,45 +9,56 @@ public class ResorsGathering : MonoBehaviour
     [SerializeField] private PlacementSystem placementSystem;
     public BoxCollider boxCollider;
     public Rigidbody rb;
-    public bool stoneBuilding;
-    public bool forestBuilding;
+    public bool StoneBuilding;
+    public bool ForestBuilding;
+    public bool FoodBuilding;
 
     private void Start()
     {
         placementSystem = GameObject.FindGameObjectWithTag("PlacmentSystem").GetComponent<PlacementSystem>();
-
     }
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.tag == "ForestBuildingRange")
         {
             placementSystem.isColliding = true;
         }
-        if (other.tag == "Forest" && forestBuilding)
+        if (other.tag == "Forest" && ForestBuilding)
         {
             resorsSriptableObj.ForestCountTilesToAdd++;
             resorsSriptableObj.boxCollidersToDestroy.Add(other.GetComponent<BoxCollider>());
         }
-
-        if (other.tag == "Stone" && stoneBuilding)
+        if (other.tag == "Stone" && StoneBuilding)
         {
             resorsSriptableObj.StoneCountTilesToAdd++;
+            resorsSriptableObj.boxCollidersToDestroy.Add(other.GetComponent<BoxCollider>());
+        }
+        if (other.tag == "Food" && FoodBuilding)
+        {
+            resorsSriptableObj.FoodCountTilesToAdd++;
             resorsSriptableObj.boxCollidersToDestroy.Add(other.GetComponent<BoxCollider>());
         }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.tag == "Forest" && forestBuilding)
+        if (other.tag == "Forest" && ForestBuilding)
         {
             resorsSriptableObj.ForestCountTilesToAdd--;
             resorsSriptableObj.boxCollidersToDestroy.Remove(other.GetComponent<BoxCollider>());
         }
 
-        if (other.tag == "Stone" && stoneBuilding)
+        if (other.tag == "Stone" && StoneBuilding)
         {
             resorsSriptableObj.StoneCountTilesToAdd--;
             resorsSriptableObj.boxCollidersToDestroy.Remove(other.GetComponent<BoxCollider>());
+        }
+
+        if (other.tag == "Food" && FoodBuilding)
+        {
+            resorsSriptableObj.FoodCountTilesToAdd++;
+            resorsSriptableObj.boxCollidersToDestroy.Add(other.GetComponent<BoxCollider>());
         }
     }  
 }
