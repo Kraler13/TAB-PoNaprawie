@@ -9,7 +9,8 @@ public class PrevievSystem : MonoBehaviour
     [SerializeField] private GameObject selection;
     [SerializeField] private float previewYOffset = 0.06f;
     [SerializeField] private Material previewMaterialsPrefab;
-    private GameObject previewObject;
+    public GameObject PreviewObject;
+    public ResorsGathering ResorsGathering;
     private Material previewMaterialsInstance;
     private void Start()
     {
@@ -18,8 +19,8 @@ public class PrevievSystem : MonoBehaviour
 
     public void StartShowingPlacementPreview(GameObject prefab, Vector2Int size)
     {
-        previewObject = Instantiate(prefab);
-        PreperePreview(previewObject);
+        PreviewObject = Instantiate(prefab);
+        PreperePreview(PreviewObject);
     }
 
 
@@ -35,11 +36,15 @@ public class PrevievSystem : MonoBehaviour
             }
             renderer.materials = materials;
         }
+        if (previewObject.GetComponentInChildren<ResorsGathering>() != null)
+        {
+            ResorsGathering = previewObject.GetComponentInChildren<ResorsGathering>();
+        }
     }
 
     public void StopShowingPreview()
     {
-        Destroy(previewObject);
+        Destroy(PreviewObject);
     }
 
     public void UpdatePosition(Vector3 position, bool validity)
@@ -58,6 +63,6 @@ public class PrevievSystem : MonoBehaviour
 
     private void MovePreview(Vector3 position)
     {
-        previewObject.transform.position = new Vector3(position.x, position.y + previewYOffset, position.z);
+        PreviewObject.transform.position = new Vector3(position.x, position.y + previewYOffset, position.z);
     }
 }

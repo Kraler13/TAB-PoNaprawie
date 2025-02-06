@@ -19,8 +19,9 @@ public class PlacementSystem : MonoBehaviour
     private List<GameObject> placedBuildings = new List<GameObject>();
     private Vector3Int lastDetectedPosition = Vector3Int.zero;
     public List<BuildInRange> buildingsWithMoreRange = new List<BuildInRange>();
-    public List<Transform> forestBuildings = new List<Transform>();
-    public List<Transform> stoneBuildings = new List<Transform>();
+    public List<ResorsGatheringRange> ResorsGatheringRange = new List<ResorsGatheringRange>();
+    public List<ResorsGatheringRange> forestBuildings = new List<ResorsGatheringRange>();
+    public List<ResorsGatheringRange> stoneBuildings = new List<ResorsGatheringRange>();
     public bool isBuilding = false;
     private void Start()
     {
@@ -57,12 +58,17 @@ public class PlacementSystem : MonoBehaviour
         previevSystem.StartShowingPlacementPreview(
             buildingsDataScriptableObj.buildingsDatas[selectedObjIndex].Prefab,
             buildingsDataScriptableObj.buildingsDatas[selectedObjIndex].Size);
+        foreach (BuildInRange builing in buildingsWithMoreRange)
+        {
+            builing.PrevievObj = previevSystem.PreviewObject;
+        }
+        PrevievResoursBuilding();              
         inputForGridSystem.OnClicked += PlaceStructure;
         inputForGridSystem.OnExit += StopPlacement;
     }
 
     private void StopPlacement()
-    { 
+    {
         WhatToEnable();
         selectedObjIndex = -1;
         gridVisual.SetActive(false);
@@ -74,37 +80,18 @@ public class PlacementSystem : MonoBehaviour
 
     private void PlaceStructure()
     {
-        if(inputForGridSystem.IsPointerOverUI())
+        if (inputForGridSystem.IsPointerOverUI())
         {
             return;
         }
         Vector3 mousePositio = inputForGridSystem.GetSelectedMapPosition();
-        Vector3Int gridPosition = grid.WorldToCell(mousePositio);
-        bool placmentValidyty = CheckPlacementValidyty();
-        if (!placmentValidyty)
+        Vector3Int gridPosition = grid.WorldToCell(mousePositio);      
+        if (!CheckPlacementValidyty())
             return;
         GameObject newBuilding = Instantiate(buildingsDataScriptableObj.buildingsDatas[selectedObjIndex].Prefab);
-        if (buildingsDataScriptableObj.buildingsDatas[selectedObjIndex].BuildingWithMoreRang)
-        {
-            buildingsWithMoreRange.Add(newBuilding.GetComponentInChildren<BuildInRange>());
-            newBuilding.GetComponentInChildren<BoxCollider>().enabled = true;
-        }
-        if (buildingsDataScriptableObj.buildingsDatas[selectedObjIndex].ResorseBuilding)
-        {
-            if (newBuilding.GetComponentInChildren<ResorsGathering>().ForestBuilding)
-            {
-                resorsSriptableObj.ForestCountTiles += resorsSriptableObj.ForestCountTilesToAdd;
-                resorsSriptableObj.ForestCountTilesToAdd = 0;
-                forestBuildings.Add(newBuilding.transform);
-                //DestroyBoxColliders();
-            }
-            if (newBuilding.GetComponentInChildren<ResorsGathering>().StoneBuilding)
-            {
-                resorsSriptableObj.StoneCountTiles += resorsSriptableObj.StoneCountTilesToAdd;
-                resorsSriptableObj.StoneCountTilesToAdd = 0;
-            }
-            Destroy(newBuilding.GetComponentInChildren<ResorsGathering>().rb);
-        }
+        BuildBuildingWithMoreRang(newBuilding);
+        BuildResorseBuilding(newBuilding);
+        BuildHouseBuilding(newBuilding);
         newBuilding.transform.position = grid.CellToWorld(gridPosition);
         placedBuildings.Add(newBuilding);
         newBuilding.GetComponentInChildren<NavMeshObstacle>().enabled = true;
@@ -116,15 +103,19 @@ public class PlacementSystem : MonoBehaviour
         bool isValid = false;
         foreach (var building in buildingsWithMoreRange)
         {
-            if(building.isValid)
+            if (building.isValid)
                 isValid = true;
         }
-
+        foreach (var building in ResorsGatheringRange)
+        {
+            if (building.isValid)
+                isValid = true;
+        }
         if (isValid && !isColliding)
         {
-            return true;           
+            return true;
         }
-        else
+        else 
         {
             return false;
         }
@@ -142,20 +133,67 @@ public class PlacementSystem : MonoBehaviour
         isBuilding = true;
     }
 
-    private void DistanceBetwenResorses()
+    private void PrevievResoursBuilding()
     {
-
+        if (previevSystem.ResorsGathering != null)
+        {
+            if (previevSystem.ResorsGathering.ForestBuilding)
+            {
+                foreach (var forestBuild in forestBuildings)
+                {
+                    if (previevSystem.PreviewObject != null)
+                        forestBuild.PrevievObj = previevSystem.PreviewObject;
+                }
+            }
+            if (previevSystem.ResorsGathering.StoneBuilding)
+            {
+                foreach (var stoneBuild in stoneBuildings)
+                {
+                    if (previevSystem.PreviewObject != null)
+                        stoneBuild.PrevievObj = previevSystem.PreviewObject;
+                }
+            }
+        }
     }
-    //private void DestroyBoxColliders()
-    //{
-    //    Debug.Log("resorsSriptableObj.boxCollidersToDestroy " + resorsSriptableObj.boxCollidersToDestroy.Count);
-    //    foreach (var collider in resorsSriptableObj.boxCollidersToDestroy)
-    //    {
-    //        if (collider != null)
-    //        {
-    //            Destroy(collider);
-    //        }
-    //    }
-    //    resorsSriptableObj.boxCollidersToDestroy.Clear();
-    //}
+
+    private void BuildBuildingWithMoreRang(GameObject newBuilding)
+    {
+        if (buildingsDataScriptableObj.buildingsDatas[selectedObjIndex].BuildingWithMoreRang)
+        {
+            buildingsWithMoreRange.Add(newBuilding.GetComponentInChildren<BuildInRange>());
+            newBuilding.GetComponentInChildren<BoxCollider>().enabled = true;
+        }
+    }
+    private void BuildResorseBuilding(GameObject newBuilding)
+    {
+        if (buildingsDataScriptableObj.buildingsDatas[selectedObjIndex].ResorseBuilding)
+        {
+            if (newBuilding.GetComponentInChildren<ResorsGathering>().ForestBuilding)
+            {
+                resorsSriptableObj.ForestCountTiles += resorsSriptableObj.ForestCountTilesToAdd;
+                resorsSriptableObj.ForestCountTilesToAdd = 0;
+                forestBuildings.Add(newBuilding.GetComponentInChildren<ResorsGatheringRange>());
+                newBuilding.GetComponentInChildren<ResorsGatheringRange>().enabled = true;
+            }
+            if (newBuilding.GetComponentInChildren<ResorsGathering>().StoneBuilding)
+            {
+                resorsSriptableObj.StoneCountTiles += resorsSriptableObj.StoneCountTilesToAdd;
+                resorsSriptableObj.StoneCountTilesToAdd = 0;
+                stoneBuildings.Add(newBuilding.GetComponentInChildren<ResorsGatheringRange>());
+                newBuilding.GetComponentInChildren<ResorsGatheringRange>().enabled = true;
+            }
+            Destroy(newBuilding.GetComponentInChildren<ResorsGathering>().rb);
+        }
+    }
+    private void BuildHouseBuilding(GameObject newBuilding)
+    {
+        if (buildingsDataScriptableObj.buildingsDatas[selectedObjIndex].HouseBuilding)
+        {
+            if (newBuilding.GetComponentInChildren<House>())
+            {
+                resorsSriptableObj.WorkForce += newBuilding.GetComponentInChildren<House>().HowMenyPeoupleToAdd;
+            }       
+            Destroy(newBuilding.GetComponentInChildren<House>());
+        }
+    }
 }

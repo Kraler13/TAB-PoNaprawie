@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 6091805545824438389}
   - component: {fileID: 5923450513661767809}
   m_Layer: 0
-  m_Name: ForestBuilding
+  m_Name: House
   m_TagString: Building
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -27,7 +27,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6091805545824438384}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 11, y: 1.5, z: 13}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -88,14 +88,11 @@ GameObject:
   - component: {fileID: 6091805546379117079}
   - component: {fileID: 6091805546379117066}
   - component: {fileID: 6091805546379117077}
-  - component: {fileID: 6091805546379117076}
-  - component: {fileID: 6091805546379117067}
   - component: {fileID: 9073322752655358888}
-  - component: {fileID: 2945779526084332689}
-  - component: {fileID: 6762562027406852615}
+  - component: {fileID: 381709013785851555}
   m_Layer: 0
-  m_Name: ForestBuilding3DModel
-  m_TagString: Untagged
+  m_Name: HouseBuilding3DModel
+  m_TagString: ForestBuildingRange
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -165,38 +162,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &6091805546379117076
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6091805546379117078}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 9, y: 1, z: 9}
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &6091805546379117067
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6091805546379117078}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 12f5e02c6ca155e41a2e0e4e2c4a5cf4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  resorsSriptableObj: {fileID: 11400000, guid: 696341b08440c7249af2e4d7507d6ecf, type: 2}
-  placementSystem: {fileID: 0}
-  boxCollider: {fileID: 6091805546379117076}
-  rb: {fileID: 6762562027406852615}
-  StoneBuilding: 0
-  ForestBuilding: 1
-  FoodBuilding: 0
 --- !u!208 &9073322752655358888
 NavMeshObstacle:
   m_ObjectHideFlags: 0
@@ -213,34 +178,16 @@ NavMeshObstacle:
   m_CarveOnlyStationary: 1
   m_Center: {x: 0, y: 0, z: 0}
   m_TimeToStationary: 0.5
---- !u!114 &2945779526084332689
+--- !u!114 &381709013785851555
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6091805546379117078}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4153692329fbd7444853719c0fd8d72c, type: 3}
+  m_Script: {fileID: 11500000, guid: 7876442c6a21e5743a7acc69ffd31129, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minDistanceFromBuilding: 20
-  isValid: 0
-  PrevievObj: {fileID: 0}
---- !u!54 &6762562027406852615
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6091805546379117078}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 0
-  m_IsKinematic: 1
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
+  HowMenyPeoupleToAdd: 10

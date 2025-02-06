@@ -20,6 +20,7 @@ MonoBehaviour:
       type: 3}
     <BuildingWithMoreRang>k__BackingField: 0
     <ResorseBuilding>k__BackingField: 1
+    <HouseBuilding>k__BackingField: 0
   - <Name>k__BackingField: Barracks
     <ID>k__BackingField: 2
     <Size>k__BackingField: {x: 4, y: 2}
@@ -27,6 +28,7 @@ MonoBehaviour:
       type: 3}
     <BuildingWithMoreRang>k__BackingField: 0
     <ResorseBuilding>k__BackingField: 0
+    <HouseBuilding>k__BackingField: 0
   - <Name>k__BackingField: RangeExtender
     <ID>k__BackingField: 3
     <Size>k__BackingField: {x: 3, y: 3}
@@ -34,6 +36,7 @@ MonoBehaviour:
       type: 3}
     <BuildingWithMoreRang>k__BackingField: 1
     <ResorseBuilding>k__BackingField: 0
+    <HouseBuilding>k__BackingField: 0
   - <Name>k__BackingField: ForestBuilding
     <ID>k__BackingField: 4
     <Size>k__BackingField: {x: 1, y: 1}
@@ -41,6 +44,7 @@ MonoBehaviour:
       type: 3}
     <BuildingWithMoreRang>k__BackingField: 0
     <ResorseBuilding>k__BackingField: 1
+    <HouseBuilding>k__BackingField: 0
   - <Name>k__BackingField: StoneBuilding
     <ID>k__BackingField: 5
     <Size>k__BackingField: {x: 2, y: 2}
@@ -48,3 +52,12 @@ MonoBehaviour:
       type: 3}
     <BuildingWithMoreRang>k__BackingField: 0
     <ResorseBuilding>k__BackingField: 1
+    <HouseBuilding>k__BackingField: 0
+  - <Name>k__BackingField: House
+    <ID>k__BackingField: 6
+    <Size>k__BackingField: {x: 1, y: 3}
+    <Prefab>k__BackingField: {fileID: 6091805545824438384, guid: 7c0d568bd8140014298c5595d7e85b5c,
+      type: 3}
+    <BuildingWithMoreRang>k__BackingField: 0
+    <ResorseBuilding>k__BackingField: 0
+    <HouseBuilding>k__BackingField: 1

@@ -36,6 +36,8 @@ public class MainBuildingActionButtons : MonoBehaviour
         ActionButtonsScriptableObj.buttons[3].onClick.AddListener(BuildRangeExtender);
         ActionButtonsScriptableObj.buttons[4].GetComponentInChildren<TextMeshProUGUI>().text = "Barracks";
         ActionButtonsScriptableObj.buttons[4].onClick.AddListener(BuildBarracks);
+        ActionButtonsScriptableObj.buttons[5].GetComponentInChildren<TextMeshProUGUI>().text = "House";
+        ActionButtonsScriptableObj.buttons[5].onClick.AddListener(BuildHouse);
     }
     private void BuildFood()
     {
@@ -56,6 +58,10 @@ public class MainBuildingActionButtons : MonoBehaviour
     private void BuildBarracks()
     {
         placementSystem.StartPlacement(2);
+    }
+    private void BuildHouse()
+    {
+        placementSystem.StartPlacement(6);
     }
     private void ClearButtons()
     {

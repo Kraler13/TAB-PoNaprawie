@@ -5586,9 +5586,6 @@ MonoBehaviour:
     type: 2}
   placementSystem: {fileID: 1281055620}
   MainBuilding: MainBuilding
-  Forester: ForestBuilding
-  RangeExtender: RangeExtender
-  B2: 
 --- !u!114 &851864371
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7411,6 +7408,7 @@ MonoBehaviour:
   previewYOffset: 0.06
   previewMaterialsPrefab: {fileID: 2100000, guid: ee331f93920b1664a8e04b53a56b906b,
     type: 2}
+  PreviewObject: {fileID: 0}
 --- !u!1 &1123911294
 GameObject:
   m_ObjectHideFlags: 0
@@ -14272,6 +14270,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4399081441797212897, guid: 846951d40b9072345b8a3f7efefe8164,
+        type: 3}
+      propertyPath: maxDistanceFromBuilding
+      value: 20
+      objectReference: {fileID: 0}
     - target: {fileID: 4399081441797212904, guid: 846951d40b9072345b8a3f7efefe8164,
         type: 3}
       propertyPath: m_Layer
@@ -14282,5 +14285,6 @@ PrefabInstance:
       propertyPath: m_TagString
       value: Untagged
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 4399081441797212898, guid: 846951d40b9072345b8a3f7efefe8164, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 846951d40b9072345b8a3f7efefe8164, type: 3}
